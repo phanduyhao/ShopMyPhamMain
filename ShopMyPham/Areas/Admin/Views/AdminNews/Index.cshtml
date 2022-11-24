@@ -2,7 +2,7 @@
 @model PagedList.Core.IPagedList<ShopMyPham.Models.News>
 
 @{
-    ViewData["Title"] = "Danh sách Tin tức";
+    ViewData["Title"] = "Danh sách Tin tức : Page " + ViewBag.CurrentPage;
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
@@ -11,7 +11,7 @@
         <div class="header-sub-title">
             <nav class="breadcrumb breadcrumb-dash">
                 <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="breadcrumb-item"><i class="anticon anticon-home me-1"></i>Home</a>
-                <a class="breadcrumb-item" asp-area="Admin" asp-controller="Home" asp-action="AdminAccount">Danh sách Tin tức: page @ViewBag.CurrentPage</a>
+                <a class="breadcrumb-item" asp-area="Admin" asp-controller="AdminNews" asp-action="Index">Danh sách Tin tức: page @ViewBag.CurrentPage</a>
             </nav>
         </div>
     </div>
@@ -22,7 +22,7 @@
                     
                 </div>
                 <div class="col-lg-4 text-end mb-5">
-                    <a class="btn btn-primary" asp-controller="AdminProducts" asp-action="Create">
+                    <a class="btn btn-primary" asp-controller="AdminNews" asp-action="Create">
                         <i class="fa-solid fa-plus"></i>
                         <span>Thêm Tin tức</span>
                     </a>

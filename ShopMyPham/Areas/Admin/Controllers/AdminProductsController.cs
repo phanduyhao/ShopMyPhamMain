@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using PagedList.Core;
 using ShopMyPham.Models;
 using WebShop.Helpper;
+using AspNetCoreHero.ToastNotification.Abstractions;
 
 namespace ShopMyPham.Areas.Admin.Controllers
 {
@@ -15,10 +16,14 @@ namespace ShopMyPham.Areas.Admin.Controllers
     public class AdminProductsController : Controller
     {
         private readonly ShopMyPhamContext _context;
+        private readonly INotyfService _notifyService;
 
-        public AdminProductsController(ShopMyPhamContext context)
+        public INotyfService notifyService { get; }
+
+        public AdminProductsController(ShopMyPhamContext context, INotyfService notifyService)
         {
             _context = context;
+            _notifyService = notifyService;
         }
 
         // GET: Admin/AdminProducts
@@ -80,6 +85,7 @@ namespace ShopMyPham.Areas.Admin.Controllers
 
                 _context.Add(product);
                 await _context.SaveChangesAsync();
+                _notifyService.Success("Thêm sản phẩm thành công!");
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CateId"] = new SelectList(_context.Categories, "CateId", "CateId", product.CateId);
@@ -120,6 +126,8 @@ namespace ShopMyPham.Areas.Admin.Controllers
                 try
                 {
                     _context.Update(product);
+                    _notifyService.Success("Cập nhật sản phẩm thành công!");
+
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -174,6 +182,8 @@ namespace ShopMyPham.Areas.Admin.Controllers
             }
 
             await _context.SaveChangesAsync();
+            _notifyService.Success("Xóa sản phẩm thành công!");
+
             return RedirectToAction(nameof(Index));
         }
 

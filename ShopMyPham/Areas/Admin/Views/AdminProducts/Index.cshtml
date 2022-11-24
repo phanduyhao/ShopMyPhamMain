@@ -10,25 +10,26 @@
 
 
 
-
 <div class="main-content">
     <div class="page-header">
         <div class="header-sub-title">
             <nav class="breadcrumb breadcrumb-dash">
                 <a asp-area="Admin" asp-controller="AdminProducts" asp-action="Index" class="breadcrumb-item"><i class="anticon anticon-home me-1"></i>Home</a>
-                <a class="breadcrumb-item" asp-area="Admin" asp-controller="Home" asp-action="AdminAccount">Danh sách sản phẩm : page @CurrentPage </a>
+                <a class="breadcrumb-item" asp-area="Admin" asp-controller="AdminProducts" asp-action="Index"> : Danh sách sản phẩm </a>
+                <span class="breadcrumb-item active">Danh sách sản phẩm : page @CurrentPage</span>
             </nav>
         </div>
     </div>
     <div class="card">
         <div class="card-body">
             <div class="row mt-4">
-                <div class="col-lg-8">
+                <div class="col-lg-8 col-6">
                     <div class="d-md-flex">
                         <div class="mb-3 me-3">
                             <select id="txtCateId" name="txtCateId" asp-items="ViewBag.DanhMuc" class="custom-select" style="min-width: 180px;">
                                 <option selected value="">Chọn Danh mục</option>
-                                <option value="all">Chọn tất cả</option>                            </select>
+                                <option value="all">Chọn tất cả</option>                            
+                            </select>
                         </div>
                         
                         <div class="mb-3">
@@ -42,7 +43,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 text-end" >
+                <div class="col-lg-4 col-6 text-end" >
                     <a class="btn btn-primary" asp-controller="AdminProducts" asp-action="Create" >
                         <i class="fa-solid fa-plus"></i>                        <span>Thêm sản phẩm</span>
                     </a>
@@ -50,7 +51,12 @@
             </div>
             <div class="table-responsive">
                 <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
-                    <div class="row align-items-center mb-5"><div class="col-sm-12 col-md-6"><div class="dataTables_length" id="DataTables_Table_0_length"><label>Show <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="custom-select "><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div></div><div class="col-sm-12 col-md-6"><div id="DataTables_Table_0_filter" class="dataTables_filter float-end"><label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="DataTables_Table_0"></label></div></div></div><div class="row">
+                    <div class="row align-items-center mb-5"><div class="col-sm-12 col-md-6"><div class="dataTables_length" id="DataTables_Table_0_length"><label>Show <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="custom-select "><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div></div><div class="col-sm-12 col-md-6"><div id="DataTables_Table_0_filter" class="dataTables_filter float-end">
+                                <form class="d-flex" role="search">
+                                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="keyword" name="keyword">
+                                    <button class="btn btn-outline-primary" type="submit">Search</button>
+                                </form>
+                    </div></div></div><div class="row">
                         <div class="col-sm-12">
                             <table class="table table-hover e-commerce-table dataTable no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
                                 <thead>
@@ -63,18 +69,30 @@
                                         <th class="sorting">#</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="record-table">
                                     @if (Model != null)
                                     {
                                         foreach (var item in Model)
                                         {
                                             <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-
-
+                                                <td>@item.ProductId</td>
+                                                <td>
+                                                    <div class="d-flex align-items-center"></div>
+                                                    <img class="img-fluid rounded" src="~/assets/images/about17.jpg">
+                                                    <h6 class="mb-3 ms-3">@item.ProductName</h6>
+                                                </td>
+                                                <td>@item.Cate.CateName</td>
+                                                <td>@item.Price.Value.ToString("#,##0") VNĐ</td>
+                                                <td>@item.UnitsInstock</td>
+                                                <td>
+                                                    @if (@item.UnitsInstock > 0)
+                                                    {
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="badge badge-success badge-dot me-3"></div>
+                                                            <div>In Stock</div>
+                                                        </div>
+                                                    }
+                                                </td>
                                                 <td class="text-end">
                                                     <a asp-area="Admin" asp-controller="AdminProducts" asp-action="Details" asp-route-id="@item.ProductId" class="btn btn-success">View</a>
                                                     <a asp-area="Admin" asp-controller="AdminProducts" asp-action="Edit" asp-route-id="@item.ProductId" class="btn btn-warning">Edit</a>
@@ -125,6 +143,23 @@
                     }
                 })
             })
+            $("#keyword").keyup(function () {
+                var strkeyword = $('#keyword').val();
+                $.ajax({
+                    url: '/Admin/Search/FindProduct/',
+                    datatype: "json",
+                    type: "POST",
+                    data: { keyword: strkeyword },
+                    async: true,
+                    success: function (results) {
+                        $("#records_table").html("");
+                        $("#records_table").html(results);
+                    },
+                    error: function (xhr) {
+                        alert('error');
+                    }
+                });
+            });
 
         })
     </script>

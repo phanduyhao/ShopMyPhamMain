@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,7 +14,7 @@ namespace ShopMyPham.Areas.Admin.Controllers
     public class AdminRolesController : Controller
     {
         private readonly ShopMyPhamContext _context;
-
+        public INotyfService notyfService { get; }
         public AdminRolesController(ShopMyPhamContext context)
         {
             _context = context;
