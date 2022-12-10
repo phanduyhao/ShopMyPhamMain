@@ -21,10 +21,10 @@ namespace ShopMyPham.Models
         public string? ImageCate { get; set; }
         public string? Title { get; set; }
         public string? Alias { get; set; }
-        public string? MetaDesc { get; set; }
         public string? MetaKey { get; set; }
         public string? Cover { get; set; }
         public string? SchemaMarkup { get; set; }
+        public string? MetaDesc { get; set; }
 
         public virtual ICollection<News> News { get; set; }
         public virtual ICollection<Product> Products { get; set; }

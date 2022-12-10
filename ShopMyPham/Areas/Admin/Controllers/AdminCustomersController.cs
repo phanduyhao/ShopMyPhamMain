@@ -25,7 +25,9 @@ namespace ShopMyPham.Areas.Admin.Controllers
         {
             var pageNumber = page == null || page <= 0 ? 1 : page.Value;
             var pageSize = 20;
-            var IsCustomers = _context.Customers.AsNoTracking().OrderByDescending(x => x.CreateDate);
+            var IsCustomers = _context.Customers
+                .AsNoTracking()
+                .OrderByDescending(x => x.CreateDate);
             PagedList<Customer> models = new PagedList<Customer>(IsCustomers, pageNumber, pageSize);
             ViewBag.CurrentPage = pageNumber;
             return View(models);

@@ -22,7 +22,7 @@ namespace ShopMyPham.Areas.Admin.Controllers
         // GET: Admin/AdminAccount
         public async Task<IActionResult> Index()
         {
-            ViewData["QuyenTruyCap"] = new SelectList(_context.Roles, "RoleId", "Description");
+            ViewData["QuyenTruyCap"] = new SelectList(_context.Roles, "RoleId", "RoleName");
             List<SelectListItem> IsTrangThai = new List<SelectListItem>();
             IsTrangThai.Add(new SelectListItem() { Text = "Active", Value = "1" });
             IsTrangThai.Add(new SelectListItem() { Text = "Block", Value = "0" });
@@ -53,7 +53,7 @@ namespace ShopMyPham.Areas.Admin.Controllers
         // GET: Admin/AdminAccount/Create
         public IActionResult Create()
         {
-            ViewData["RoleId"] = new SelectList(_context.Roles, "RoleId", "RoleId");
+            ViewData["QuyenTruyCap"] = new SelectList(_context.Roles, "RoleId", "RoleName");
             return View();
         }
 
@@ -70,7 +70,7 @@ namespace ShopMyPham.Areas.Admin.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["RoleId"] = new SelectList(_context.Roles, "RoleId", "RoleId", account.RoleId);
+            ViewData["QuyenTruyCap"] = new SelectList(_context.Roles, "RoleId", "RoleName",account.RoleId);
             return View(account);
         }
 
@@ -87,7 +87,7 @@ namespace ShopMyPham.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            ViewData["RoleId"] = new SelectList(_context.Roles, "RoleId", "RoleId", account.RoleId);
+            ViewData["QuyenTruyCap"] = new SelectList(_context.Roles, "RoleId", "RoleName", account.RoleId);
             return View(account);
         }
 
@@ -123,7 +123,7 @@ namespace ShopMyPham.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["RoleId"] = new SelectList(_context.Roles, "RoleId", "RoleId", account.RoleId);
+            ViewData["QuyenTruyCap"] = new SelectList(_context.Roles, "RoleId", "RoleName", account.RoleId);
             return View(account);
         }
 

@@ -18,10 +18,12 @@ namespace ShopMyPham.Areas.Admin.Controllers
     public class AdminPagesController : Controller
     {
         private readonly ShopMyPhamContext _context;
+        public INotyfService _notyfService { get; }
 
-        public AdminPagesController(ShopMyPhamContext context)
+        public AdminPagesController(ShopMyPhamContext context, INotyfService notyfService)
         {
             _context = context;
+            _notyfService = notyfService;
         }
 
         // GET: Admin/AdminPages
@@ -78,10 +80,11 @@ namespace ShopMyPham.Areas.Admin.Controllers
                     string imageName = Utilities.SEOUrl(page.PageName) + extension;
                     page.Thumb = await Utilities.UploadFile(fThumb, @"page", imageName.ToLower());
                 }
-                if (string.IsNullOrEmpty(page.Thumb)) page.Thumb = "default.png";
+                if (string.IsNullOrEmpty(page.Thumb)) page.Thumb = "default.jpg";
                 page.Alias = Utilities.SEOUrl(page.PageName);
                 _context.Add(page);
                 await _context.SaveChangesAsync();
+                _notyfService.Success("Thêm thành công!");
                 return RedirectToAction(nameof(Index));
             }
             return View(page);
@@ -129,6 +132,8 @@ namespace ShopMyPham.Areas.Admin.Controllers
                     page.Alias = Utilities.SEOUrl(page.PageName);
                     _context.Update(page);
                     await _context.SaveChangesAsync();
+                    _notyfService.Success("Chỉnh sửa thành công!");
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -180,6 +185,8 @@ namespace ShopMyPham.Areas.Admin.Controllers
             }
             
             await _context.SaveChangesAsync();
+            _notyfService.Success("Xóa thành công!");
+
             return RedirectToAction(nameof(Index));
         }
 

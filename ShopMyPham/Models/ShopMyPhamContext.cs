@@ -34,7 +34,7 @@ namespace ShopMyPham.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=ADMIN\\SQLEXPRESS;Database=ShopMyPham;Integrated Security=true;");
+                optionsBuilder.UseSqlServer("Server=ADMIN\\SQLEXPRESS;Database=ShopMyPham;Integrated Security=true");
             }
         }
 
@@ -88,7 +88,7 @@ namespace ShopMyPham.Models
                 entity.Property(e => e.ImageCate).HasMaxLength(250);
 
                 entity.Property(e => e.MetaDesc)
-                    .HasMaxLength(10)
+                    .HasMaxLength(250)
                     .IsFixedLength();
 
                 entity.Property(e => e.MetaKey).HasMaxLength(250);
@@ -150,41 +150,35 @@ namespace ShopMyPham.Models
             modelBuilder.Entity<News>(entity =>
             {
                 entity.HasKey(e => e.PostId)
-                    .HasName("PK_TinTuc");
-
-                entity.Property(e => e.PostId).HasColumnName("PostID");
+                    .HasName("PK_New");
 
                 entity.Property(e => e.AccountId).HasColumnName("AccountID");
 
-                entity.Property(e => e.Alias)
-                    .HasMaxLength(10)
-                    .IsFixedLength();
+                entity.Property(e => e.Alias).HasMaxLength(255);
 
-                entity.Property(e => e.Author).HasMaxLength(250);
-
-                entity.Property(e => e.CateId).HasColumnName("CateID");
+                entity.Property(e => e.Author).HasMaxLength(255);
 
                 entity.Property(e => e.CreateDate).HasColumnType("datetime");
 
-                entity.Property(e => e.MetaDesc).HasMaxLength(250);
+                entity.Property(e => e.MetaDesc).HasMaxLength(255);
 
-                entity.Property(e => e.MetaKey).HasMaxLength(250);
+                entity.Property(e => e.MetaKey).HasMaxLength(255);
 
-                entity.Property(e => e.ShortDesc).HasMaxLength(250);
+                entity.Property(e => e.ShortDesc).HasMaxLength(255);
 
-                entity.Property(e => e.Thumb).HasMaxLength(250);
+                entity.Property(e => e.Thumb).HasMaxLength(255);
 
-                entity.Property(e => e.Title).HasMaxLength(250);
+                entity.Property(e => e.Title).HasMaxLength(255);
 
                 entity.HasOne(d => d.Account)
                     .WithMany(p => p.News)
                     .HasForeignKey(d => d.AccountId)
-                    .HasConstraintName("FK_TinTuc_Accounts");
+                    .HasConstraintName("FK_News_Accounts");
 
                 entity.HasOne(d => d.Cate)
                     .WithMany(p => p.News)
                     .HasForeignKey(d => d.CateId)
-                    .HasConstraintName("FK_TinTuc_Category");
+                    .HasConstraintName("FK_News_Category");
             });
 
             modelBuilder.Entity<Order>(entity =>

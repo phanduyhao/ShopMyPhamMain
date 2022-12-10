@@ -1,12 +1,9 @@
-﻿@using PagedList.Core.Mvc
-@model PagedList.Core.IPagedList<ShopMyPham.Models.Product>
+﻿@model IEnumerable<ShopMyPham.Models.Product>
 
 @{
-    int CurrentPage = ViewBag.CurrentPage;
-    ViewData["Title"] = "Danh sách sản phẩm " + CurrentPage;
+    ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
-
 
 
 
@@ -16,7 +13,7 @@
             <nav class="breadcrumb breadcrumb-dash">
                 <a asp-area="Admin" asp-controller="AdminProducts" asp-action="Index" class="breadcrumb-item"><i class="anticon anticon-home me-1"></i>Home</a>
                 <a class="breadcrumb-item" asp-area="Admin" asp-controller="AdminProducts" asp-action="Index"> : Danh sách sản phẩm </a>
-                <span class="breadcrumb-item active">Danh sách sản phẩm : page @CurrentPage</span>
+                <span class="breadcrumb-item active">Danh sách sản phẩm </span>
             </nav>
         </div>
     </div>
@@ -26,12 +23,12 @@
                 <div class="col-lg-8 col-6">
                     <div class="d-md-flex">
                         <div class="mb-3 me-3">
-                            <select id="txtCateId" name="txtCateId" asp-items="ViewBag.DanhMuc" class="custom-select" style="min-width: 180px;">
+                            <select name="txtCateId" id="txtCateId" asp-items="ViewBag.DanhMuc" class="custom-select" style="min-width: 180px;">
                                 <option selected value="">Chọn Danh mục</option>
-                                <option value="all">Chọn tất cả</option>                            
+                                <option value="all">Chọn tất cả</option>
                             </select>
                         </div>
-                        
+
                         <div class="mb-3">
                             <select class="custom-select" style="min-width: 180px;">
                                 <option selected>Status</option>
@@ -43,25 +40,30 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-6 text-end" >
-                    <a class="btn btn-primary" asp-controller="AdminProducts" asp-action="Create" >
+                <div class="col-lg-4 col-6 text-end">
+                    <a class="btn btn-primary" asp-controller="AdminProducts" asp-action="Create">
                         <i class="fa-solid fa-plus"></i>                        <span>Thêm sản phẩm</span>
                     </a>
                 </div>
             </div>
             <div class="table-responsive">
                 <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
-                    <div class="row align-items-center mb-5"><div class="col-sm-12 col-md-6"><div class="dataTables_length" id="DataTables_Table_0_length"><label>Show <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="custom-select "><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div></div><div class="col-sm-12 col-md-6"><div id="DataTables_Table_0_filter" class="dataTables_filter float-end">
+                    <div class="row align-items-center mb-5">
+                        <div class="col-sm-12 col-md-6"><div class="dataTables_length" id="DataTables_Table_0_length"><label>Show <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="custom-select "><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div></div><div class="col-sm-12 col-md-6">
+                            <div id="DataTables_Table_0_filter" class="dataTables_filter float-end">
                                 <form class="d-flex" role="search">
                                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="keyword" name="keyword">
                                     <button class="btn btn-outline-primary" type="submit">Search</button>
                                 </form>
-                    </div></div></div><div class="row">
+                            </div>
+                        </div>
+                    </div><div class="row">
                         <div class="col-sm-12">
                             <table class="table table-hover e-commerce-table dataTable no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
                                 <thead>
                                     <tr role="row">
                                         <th class="sorting">ID</th>
+                                        <th>Ảnh</th>
                                         <th class="sorting">Tên sản phẩm</th>
                                         <th class="sorting">Danh mục</th>
                                         <th class="sorting">Giá</th>
@@ -76,22 +78,26 @@
                                         {
                                             <tr>
                                                 <td>@item.ProductId</td>
+                                                <td>   <img class="img-fluid rounded" width="70" height="70" src="~/images/products/@item.Thumb"></td>
+
                                                 <td>
-                                                    <div class="d-flex align-items-center"></div>
-                                                    <img class="img-fluid rounded" src="~/assets/images/about17.jpg">
                                                     <h6 class="mb-3 ms-3">@item.ProductName</h6>
                                                 </td>
                                                 <td>@item.Cate.CateName</td>
                                                 <td>@item.Price.Value.ToString("#,##0") VNĐ</td>
-                                                <td>@item.UnitsInstock</td>
                                                 <td>
-                                                    @if (@item.UnitsInstock > 0)
+                                                   @if (item.UnitsInstock > 0)
                                                     {
                                                         <div class="d-flex align-items-center">
                                                             <div class="badge badge-success badge-dot me-3"></div>
-                                                            <div>In Stock</div>
-                                                        </div>
-                                                    }
+                                                            <div>Còn hàng</div>
+                                                        </div> }
+                                                    else
+                                                    {
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="badge badge-success badge-dot me-3"></div>
+                                                            <div>Hết hàng</div>
+                                                        </div>}
                                                 </td>
                                                 <td class="text-end">
                                                     <a asp-area="Admin" asp-controller="AdminProducts" asp-action="Details" asp-route-id="@item.ProductId" class="btn btn-success">View</a>
@@ -103,11 +109,11 @@
                                     }
                                 </tbody>
                             </table>
-                            <div aria-label="Page navigation example">
+                           @* <div aria-label="Page navigation example">
                                 <ul class="pagination">
                                     <pager class="pager-container" list="@Model" asp-area="Admin" asp-controller="AdminProducts" asp-route-CateId="$ViewBag.CurrentPage" asp-action="Index"></pager>
                                 </ul>
-                            </div>
+                            </div>*@
                         </div>
                     </div>
                 </div>
@@ -117,28 +123,28 @@
 </div>
 @section Scripts{
     <script>
-        $(document).ready(function(){
-            jQuery("txtCateId").change(function (){
+        $(document).ready(function () {
+            jQuery("txtCateId").change(function () {
                 var CateId = jQuery(this).children(":selected").attr("value");
                 CateId = parseFloat(CateId);
                 $('#txtCateId option')
                     .removeAttr('selected');
-                $("txtCateId > [value=" + CateId + "]").attr("selected","true");
-                
+                $("txtCateId > [value=" + CateId + "]").attr("selected", "true");
+
                 $.ajax({
                     url: '/Admin/AdminProducts/Fillter',
                     datatype: "json",
                     type: "GET",
-                    data:{
+                    data: {
                         CateId: CateId
                     },
                     async: true,
-                    success: function(results){
-                        if(results.status == "success"){
+                    success: function (results) {
+                        if (results.status == "success") {
                             window.location.href = results.redirectUrl;
                         }
                     },
-                    error: function(xhr){
+                    error: function (xhr) {
                         alert('error');
                     }
                 })
@@ -165,3 +171,151 @@
     </script>
 }
 
+
+
+
+@*@model IEnumerable<ShopMyPham.Models.Product>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShortDesc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Discount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Thumb)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Video)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateCreated)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateModified)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HomeFlag)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Active)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BestSeller)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tags)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Alias)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MetaDesc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MetaKey)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UnitsInstock)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShortDesc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Discount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Thumb)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Video)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateCreated)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateModified)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HomeFlag)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Active)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BestSeller)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tags)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Alias)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MetaDesc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MetaKey)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnitsInstock)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cate.CateId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ProductId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+*@

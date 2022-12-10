@@ -14,10 +14,11 @@ namespace ShopMyPham.Areas.Admin.Controllers
     public class AdminRolesController : Controller
     {
         private readonly ShopMyPhamContext _context;
-        public INotyfService notyfService { get; }
-        public AdminRolesController(ShopMyPhamContext context)
+        public INotyfService _notyfService { get; }
+        public AdminRolesController(ShopMyPhamContext context, INotyfService notyfService)
         {
             _context = context;
+            _notyfService = notyfService;
         }
 
         // GET: Admin/AdminRoles
@@ -61,6 +62,7 @@ namespace ShopMyPham.Areas.Admin.Controllers
             {
                 _context.Add(role);
                 await _context.SaveChangesAsync();
+                _notyfService.Success("Thêm thành công!");
                 return RedirectToAction(nameof(Index));
             }
             return View(role);
@@ -100,6 +102,8 @@ namespace ShopMyPham.Areas.Admin.Controllers
                 {
                     _context.Update(role);
                     await _context.SaveChangesAsync();
+                    _notyfService.Success("Chỉnh sửa thành công!");
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -151,6 +155,8 @@ namespace ShopMyPham.Areas.Admin.Controllers
             }
             
             await _context.SaveChangesAsync();
+            _notyfService.Success("Xóa thành công!");
+
             return RedirectToAction(nameof(Index));
         }
 

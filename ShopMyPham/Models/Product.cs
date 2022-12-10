@@ -5,6 +5,8 @@ namespace ShopMyPham.Models
 {
     public partial class Product
     {
+        private Category cate;
+
         public Product()
         {
             OrderDetails = new HashSet<OrderDetail>();
@@ -31,7 +33,7 @@ namespace ShopMyPham.Models
         public string? MetaKey { get; set; }
         public int UnitsInstock { get; set; }
 
-        public virtual Category Cate { get; set; } = null!;
+        public virtual Category? Cate { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }
 }

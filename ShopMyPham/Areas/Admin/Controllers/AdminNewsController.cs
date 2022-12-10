@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNetCoreHero.ToastNotification.Abstractions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PagedList.Core;
+using ShopMyPham.Helpper;
 using ShopMyPham.Models;
 
 namespace ShopMyPham.Areas.Admin.Controllers
@@ -14,10 +18,12 @@ namespace ShopMyPham.Areas.Admin.Controllers
     public class AdminNewsController : Controller
     {
         private readonly ShopMyPhamContext _context;
+        public INotyfService _notyfService { get; }
 
-        public AdminNewsController(ShopMyPhamContext context)
+        public AdminNewsController(ShopMyPhamContext context, INotyfService notyfService)
         {
             _context = context;
+            _notyfService = notyfService;
         }
 
         // GET: Admin/AdminNews
@@ -55,7 +61,6 @@ namespace ShopMyPham.Areas.Admin.Controllers
         public IActionResult Create()
         {
             ViewData["AccountId"] = new SelectList(_context.Accounts, "AccountId", "AccountId");
-            ViewData["CateId"] = new SelectList(_context.Categories, "CateId", "CateId");
             return View();
         }
 
@@ -64,16 +69,25 @@ namespace ShopMyPham.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PostId,Title,ShortDesc,MaxDesc,Thumb,Published,Alias,CreateDate,Author,AccountId,CateId,IsHot,IsNewFeed,MetaKey,MetaDesc,Views")] News news)
+        public async Task<IActionResult> Create([Bind("PostId,Title,ShortDesc,MaxDesc,Thumb,Published,Alias,CreateDate,Author,AccountId,CateId,IsHot,IsNewFeed,MetaKey,MetaDesc,Views")] News news, Microsoft.AspNetCore.Http.IFormFile fThumb)
         {
             if (ModelState.IsValid)
             {
+                if (fThumb != null)
+                {
+                    string extension = Path.GetExtension(fThumb.FileName);
+                    string imageName = Utilities.SEOUrl(news.Title) + extension;
+                    news.Thumb = await Utilities.UploadFile(fThumb, @"new", imageName.ToLower());
+                }
+                if (string.IsNullOrEmpty(news.Thumb)) news.Thumb = "default.jpg";
+                news.Alias = Utilities.SEOUrl(news.Title);
                 _context.Add(news);
                 await _context.SaveChangesAsync();
+                _notyfService.Success("Thêm thành công!");
+
                 return RedirectToAction(nameof(Index));
             }
             ViewData["AccountId"] = new SelectList(_context.Accounts, "AccountId", "AccountId", news.AccountId);
-            ViewData["CateId"] = new SelectList(_context.Categories, "CateId", "CateId", news.CateId);
             return View(news);
         }
 
@@ -100,7 +114,7 @@ namespace ShopMyPham.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PostId,Title,ShortDesc,MaxDesc,Thumb,Published,Alias,CreateDate,Author,AccountId,CateId,IsHot,IsNewFeed,MetaKey,MetaDesc,Views")] News news)
+        public async Task<IActionResult> Edit(int id, [Bind("PostId,Title,ShortDesc,MaxDesc,Thumb,Published,Alias,CreateDate,Author,AccountId,CateId,IsHot,IsNewFeed,MetaKey,MetaDesc,Views")] News news, Microsoft.AspNetCore.Http.IFormFile fThumb)
         {
             if (id != news.PostId)
             {
@@ -111,8 +125,18 @@ namespace ShopMyPham.Areas.Admin.Controllers
             {
                 try
                 {
+                    if (fThumb != null)
+                    {
+                        string extension = Path.GetExtension(fThumb.FileName);
+                        string imageName = Utilities.SEOUrl(news.Title) + extension;
+                        news.Thumb = await Utilities.UploadFile(fThumb, @"new", imageName.ToLower());
+                    }
+                    if (string.IsNullOrEmpty(news.Thumb)) news.Thumb = "default.jpg";
+                    news.Alias = Utilities.SEOUrl(news.Title);
                     _context.Update(news);
                     await _context.SaveChangesAsync();
+                    _notyfService.Success("Chỉnh sửa thành công!");
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -168,6 +192,8 @@ namespace ShopMyPham.Areas.Admin.Controllers
             }
             
             await _context.SaveChangesAsync();
+            _notyfService.Success("Xóa thành công!");
+
             return RedirectToAction(nameof(Index));
         }
 
