@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<ShopMyPham.Models.Product>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Danh sách sản phẩm";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
@@ -67,6 +67,7 @@
                                         <th class="sorting">Tên sản phẩm</th>
                                         <th class="sorting">Danh mục</th>
                                         <th class="sorting">Giá</th>
+                                        <th class="sorting">Giá giảm</th>
                                         <th class="sorting">Trạng thái</th>
                                         <th class="sorting">#</th>
                                     </tr>
@@ -80,24 +81,20 @@
                                                 <td>@item.ProductId</td>
                                                 <td>   <img class="img-fluid rounded" width="70" height="70" src="~/images/products/@item.Thumb"></td>
 
-                                                <td>
+                                                <td style="width:35%">
                                                     <h6 class="mb-3 ms-3">@item.ProductName</h6>
                                                 </td>
-                                                <td>@item.Cate.CateName</td>
+                                                <td >
+                                                    @item.Cate.CateName
+                                                </td>
                                                 <td>@item.Price.Value.ToString("#,##0") VNĐ</td>
+                                                <td>@item.Discount.Value.ToString("#,##0") VNĐ</td>
+
                                                 <td>
-                                                   @if (item.UnitsInstock > 0)
-                                                    {
                                                         <div class="d-flex align-items-center">
                                                             <div class="badge badge-success badge-dot me-3"></div>
                                                             <div>Còn hàng</div>
-                                                        </div> }
-                                                    else
-                                                    {
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="badge badge-success badge-dot me-3"></div>
-                                                            <div>Hết hàng</div>
-                                                        </div>}
+                                                        </div> 
                                                 </td>
                                                 <td class="text-end">
                                                     <a asp-area="Admin" asp-controller="AdminProducts" asp-action="Details" asp-route-id="@item.ProductId" class="btn btn-success">View</a>

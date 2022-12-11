@@ -28,7 +28,7 @@ namespace ShopMyPham.Areas.Admin.Controllers
         public IActionResult Index(int page = 1, int CateId = 0)
         {
             var pageNumber = page;
-            var pageSize = 20;
+            var pageSize = 200;
 
             List<Product> lsProducts = new List<Product>();
             if (CateId != 0)
