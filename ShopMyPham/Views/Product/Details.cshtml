@@ -1,191 +1,348 @@
 ﻿@model ShopMyPham.Models.Product
 
 @{
-    ViewData["Title"] = Model.Title ;
+    ViewData["Title"] = Model.Title;
     Layout = "~/Views/Shared/_Layout.cshtml";
+    List<Product> lsProducts = ViewBag.SanPham;
 }
 
-		<section class="z-index-2 position-relative pb-2 mb-14" data-animated-id="1">
+<section class="z-index-2 position-relative pb-2 mb-12 " data-animated-id="1">
     
     <div class="bg-gray-weak mb-3">
         <div class="container">
             <nav class="py-4 lh-30px" aria-label="breadcrumb">
                 <ol class="breadcrumb justify-content-center py-1">
-                    <li class="breadcrumb-item"><a title="Home" href="../index.html">Home</a></li>
-                            <li class="breadcrumb-item"><a title="Shop" href="../shop/shop-layout-v2.html">Shop</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Natural Coconut Cleansing Oil</li>
+                    <li class="breadcrumb-item"><a title="Trang chủ" href="/">Trang chủ</a></li>
+                            <li class="breadcrumb-item"><a title="Shop" href="/shop.html">Cửa hàng</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">@Model.ProductName</li>
                 </ol>
             </nav>
         </div>
     </div>
 </section>
-<section class="container pt-6 pb-20" data-animated-id="2">
-	<div class="row ">
-		<div class="col-md-6 pe-md-13">
-			<div class="row">
-	<div class="col-xl-2 pe-xl-0 order-1 order-xl-0 mt-5 mt-xl-0">
-		<div id="vertical-slider-thumb" class="slick-slider slick-slider-thumb ps-1 ms-n3 me-n4 mx-xl-0 slick-initialized slick-vertical" data-slick-options="{&quot;arrows&quot;:false,&quot;asNavFor&quot;:&quot;#vertical-slider-slides&quot;,&quot;dots&quot;:false,&quot;focusOnSelect&quot;:true,&quot;responsive&quot;:[{&quot;breakpoint&quot;:1260,&quot;settings&quot;:{&quot;vertical&quot;:false}}],&quot;slidesToShow&quot;:4,&quot;vertical&quot;:true}"><div class="slick-list draggable" style="height: 487.312px;"><div class="slick-track" style="opacity: 1; height: 488px; transform: translate3d(0px, 0px, 0px);"><img src="../assets/images/shop/product-gallery-05-154x205.jpg" class="mx-3 mx-xl-0 px-0 mb-xl-7 slick-slide slick-current slick-active" width="75" height="100" title="" data-slick-index="0" aria-hidden="false" tabindex="0" style="width: 77px;"><img src="../assets/images/shop/product-gallery-06-154x205.jpg" class="mx-3 mx-xl-0 px-0 mb-xl-7 slick-slide slick-active" width="75" height="100" title="" data-slick-index="1" aria-hidden="false" tabindex="0" style="width: 77px;"><img src="../assets/images/shop/product-gallery-07-154x205.jpg" class="mx-3 mx-xl-0 px-0 mb-xl-7 slick-slide slick-active" width="75" height="100" title="" data-slick-index="2" aria-hidden="false" tabindex="0" style="width: 77px;"><div class="position-relative mx-3 mx-xl-0 px-0 mb-xl-7 slick-slide slick-active" width="75" height="100" data-slick-index="3" aria-hidden="false" tabindex="0" style="width: 77px;">
-						<img src="../assets/images/shop/product-gallery-08-154x205.jpg" class="w-100" alt="product gallery">
-						<div class="card-img-overlay d-inline-flex flex-column align-items-center justify-content-center">
-							<div class="d-flex justify-content-center align-items-center rounded-circle product-gallery-video-thumb text-dark bg-white">
-								<i class="fas fa-play"></i>
-							</div>
-						</div>
-					</div></div></div></div>
-	</div>
-	<div class="col-xl-10 ps-xl-8 pe-xl-0 order-0 order-xl-1">
-		<div id="vertical-slider-slides" class="slick-slider slick-slider-arrow-inside slick-slider-dots-inside slick-slider-dots-light g-0 slick-initialized" data-slick-options="{&quot;arrows&quot;:false,&quot;asNavFor&quot;:&quot;#vertical-slider-thumb&quot;,&quot;dots&quot;:false,&quot;fade&quot;:true,&quot;slidesToShow&quot;:1}"><div class="slick-list draggable" style="height: 589.328px;"><div class="slick-track" style="opacity: 1; width: 1768px;"><a href="../assets/images/shop/product-gallery-05.jpg" data-gallery="product-gallery" class="slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" tabindex="0" style="width: 442px; position: relative; left: 0px; top: 0px; z-index: 999; opacity: 1;"><img src="../assets/images/shop/product-gallery-05.jpg" width="540" height="720" title="" class="h-auto"></a><a href="../assets/images/shop/product-gallery-06.jpg" data-gallery="product-gallery" class="slick-slide" data-slick-index="1" aria-hidden="true" tabindex="-1" style="width: 442px; position: relative; left: -442px; top: 0px; z-index: 998; opacity: 0;"><img src="../assets/images/shop/product-gallery-06.jpg" width="540" height="720" title="" class="h-auto"></a><a href="../assets/images/shop/product-gallery-07.jpg" data-gallery="product-gallery" class="slick-slide" data-slick-index="2" aria-hidden="true" tabindex="-1" style="width: 442px; position: relative; left: -884px; top: 0px; z-index: 998; opacity: 0;"><img src="../assets/images/shop/product-gallery-07.jpg" width="540" height="720" title="" class="h-auto"></a><div class="position-relative slick-slide" data-slick-index="3" aria-hidden="true" tabindex="-1" style="width: 442px; position: relative; left: -1326px; top: 0px; z-index: 998; opacity: 0;">
-						<img src="../assets/images/shop/product-gallery-08.jpg" width="540" height="720" title="" class="h-auto">
-						<div class="card-img-overlay d-inline-flex flex-column align-items-center justify-content-center">
-							<a href="https://www.youtube.com/watch?v=6v2L2UGZJAM" class="view-video d-flex justify-content-center align-items-center rounded-circle product-gallery-video btn btn-light btn-hover-bg-gray border-0 text-dark text-decoration-none" tabindex="-1">
-								<i class="fas fa-play"></i>
-							</a>
-						</div>
-					</div></div></div></div>
-	</div>
-</div>
-		</div>
-		<div class="col-md-6 pt-md-0 pt-10">
+<section class="container pt-15 pb-20 border-bottom" data-animated-id="2">
+    <div class="row ">
+        <div class="col-md-6 pe-13">
+            <div class="position-relative">
+                <div class="position-absolute z-index-2 w-100 d-flex justify-content-end">
+                    <div class="p-6">
+                        <a href="#" class="d-flex align-items-center justify-content-center product-gallery-action rounded-circle" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Thêm danh sách yêu thích">
+                            <svg class="icon fs-4">
+                                <use xlink:href="#icon-star-light"></use>
+                            </svg>
+                        </a>
+                        <a href="#" class="d-flex align-items-center justify-content-center mt-5 product-gallery-action rounded-circle" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="So sánh">
+                            <svg class="icon fs-4">
+                                <use xlink:href="#icon-arrows-left-right-light"></use>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div id="slider" class="slick-slider slick-slider-arrow-inside slick-slider-dots-inside slick-slider-dots-light g-0 slick-initialized" data-slick-options="{&quot;arrows&quot;:false,&quot;asNavFor&quot;:&quot;#slider-thumb&quot;,&quot;dots&quot;:false,&quot;fade&quot;:true,&quot;slidesToShow&quot;:1}">
+                    <div class="slick-list draggable" style="height: 705.328px;">
+                        <div class="slick-track" style="opacity: 1; width: 2116px;">
+                            <a href="~/images/products/@Model.Thumb" data-gallery="gallery1" class="slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" tabindex="0" style="width: 529px; position: relative; left: 0px; top: 0px; z-index: 999; opacity: 1;">
+                                <img src="~/images/products/@Model.Thumb" class="h-auto img-fluid">
+                            </a>
+                            <a href="../assets/images/shop/product-gallery-06.jpg" data-gallery="gallery1" class="slick-slide" data-slick-index="1" aria-hidden="true" tabindex="-1" style="width: 529px; position: relative; left: -529px; top: 0px; z-index: 998; opacity: 0;">
+                                <img src="../assets/images/shop/product-gallery-06.jpg" class="h-auto" width="540" height="720">
+                            </a>
+                            <a href="../assets/images/shop/product-gallery-07.jpg" data-gallery="gallery1" class="slick-slide" data-slick-index="2" aria-hidden="true" tabindex="-1" style="width: 529px; position: relative; left: -1058px; top: 0px; z-index: 998; opacity: 0;">
+                                <img src="../assets/images/shop/product-gallery-07.jpg" class="h-auto" width="540" height="720">
+                            </a>
+                            <a href="../assets/images/shop/product-gallery-08.jpg" data-gallery="gallery1" class="slick-slide" data-slick-index="3" aria-hidden="true" tabindex="-1" style="width: 529px; position: relative; left: -1587px; top: 0px; z-index: 998; opacity: 0;">
+                                <img src="../assets/images/shop/product-gallery-08.jpg" class="h-auto" width="540" height="720">
+                            </a>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+            <div class="mt-n15">
+                <div id="slider-thumb" class="slick-slider slick-slider-thumb ps-1 ms-n3 me-n4 slick-initialized" data-slick-options="{&quot;arrows&quot;:false,&quot;asNavFor&quot;:&quot;#slider&quot;,&quot;dots&quot;:false,&quot;focusOnSelect&quot;:true,&quot;slidesToShow&quot;:5,&quot;vertical&quot;:false}">
+                    <div class="slick-list draggable" style="height: 132.453px;"><div class="slick-track" style="opacity: 1; width: 432px; transform: translate3d(0px, 0px, 0px);"><img src="../assets/images/shop/product-gallery-05-154x205.jpg" class="mx-3 px-0 slick-slide slick-current slick-active" width="75" height="100" data-slick-index="0" aria-hidden="false" tabindex="0" style="width: 100px;"><img src="../assets/images/shop/product-gallery-06-154x205.jpg" class="mx-3 px-0 slick-slide slick-active" width="75" height="100" data-slick-index="1" aria-hidden="false" tabindex="0" style="width: 98px;"><img src="../assets/images/shop/product-gallery-07-154x205.jpg" class="mx-3 px-0 slick-slide slick-active" width="75" height="100" data-slick-index="2" aria-hidden="false" tabindex="0" style="width: 98px;"><img src="../assets/images/shop/product-gallery-08-154x205.jpg" class="mx-3 px-0 slick-slide slick-active" width="75" height="100" data-slick-index="3" aria-hidden="false" tabindex="0" style="width: 98px;"></div></div>
+
+
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 pt-md-0 pt-10">
             <p class="d-flex align-items-center mb-6">
-			<span class="text-decoration-line-through">39.00</span>
-		<span class="fs-18px text-dark ps-6 fw-bold">29.00</span>
-	<span class="badge text-bg-primary fs-16px fw-semibold ms-7 px-6 py-3">20%</span>
-</p>
-	<h4 class="mb-4 pb-2">
-        Natural Coconut Cleansing Oil
-	</h4>
-<div class="d-flex align-items-center fs-15px mb-6">
-		<p class="mb-0 fw-semibold text-dark">4.86</p>
-	<ul class="list-inline d-flex mb-0 px-6 rating-result">
-		<li class="list-inline-item me-0 fs-12px">
-			<i class="fas fa-star"></i>
-		</li>
-		<li class="llist-inline-item me-0 fs-12px">
-			<i class="fas fa-star"></i>
-		</li>
-		<li class="list-inline-item me-0 fs-12px">
-			<i class="fas fa-star"></i>
-		</li>
-		<li class="list-inline-item me-0 fs-12px">
-			<i class="fas fa-star"></i>
-		</li>
-		<li class="llist-inline-item me-0 fs-12px">
-			<i class="fas fa-star"></i>
-		</li>
-	</ul>
-		<a href="#" class="border-start border-1 ps-6 text-body">Read 2947 reviews</a>
-</div>
-	<p class="fs-15px">Niacinamide and Vitamin C are two anti-aging superstars but not usually formulated together because of their different pH levels.</p>
+                @if (Model.Discount == 0 || Model.Discount == null)
+                {
+                    <ins class="text-decoration-none text-dark fw-semibold me-4">@Model.Price.Value.ToString("#,##0") VNĐ</ins>
+                }
+                else
+                {
+                    <del class=" text-body fw-500 me-4 fs-15px">@Model.Price.Value.ToString("#,##0") VNĐ</del>
+                    <ins class="text-decoration-none text-dark fw-semibold">@Model.Discount.Value.ToString("#,##0") VNĐ</ins>
 
+                }
+            </p>
+            <h4 class="mb-4 pb-2">
+                @Model.ProductName
+            </h4>
+            <div class="d-flex align-items-center fs-15px mb-6">
+                <p class="mb-0 fw-semibold text-dark">4.86</p>
+                <ul class="list-inline d-flex mb-0 px-6 rating-result">
+                    <li class="list-inline-item me-0 fs-12px">
+                        <i class="fas fa-star"></i>
+                    </li>
+                    <li class="llist-inline-item me-0 fs-12px">
+                        <i class="fas fa-star"></i>
+                    </li>
+                    <li class="list-inline-item me-0 fs-12px">
+                        <i class="fas fa-star"></i>
+                    </li>
+                    <li class="list-inline-item me-0 fs-12px">
+                        <i class="fas fa-star"></i>
+                    </li>
+                    <li class="llist-inline-item me-0 fs-12px">
+                        <i class="fas fa-star"></i>
+                    </li>
+                </ul>
+            </div>
+            <p class="fs-15px">@Model.ShortDesc</p>
+            <p class="mb-4 pb-2">
+                <span class="text-dark">
+                    <svg class="icon fs-5 me-4 pe-2 align-text-bottom">
+                        <use xlink:href="#icon-eye-light"></use>
+                    </svg>
+                    17 người xem
+                </span>
+            </p>
 
-<form>
-    <div class="form-group shop-swatch mb-7 d-flex align-items-center">
-	<span class="fw-semibold text-dark me-7">Size: </span>
-	<ul class="list-inline d-flex justify-content-start mb-0">
-			<li class="list-inline-item me-4 fw-semibold">
-				<input type="radio" id="radio1" name="radio" class="product-info-size d-none" checked="">
-				<label for="radio1" class="fs-14px p-4 d-block rounded text-decoration-none border" data-var="full size">Full size</label>
-			</li>
-			<li class="list-inline-item me-4 fw-semibold">
-				<input type="radio" id="radio2" name="radio" class="product-info-size d-none">
-				<label for="radio2" class="fs-14px p-4 d-block rounded text-decoration-none border" data-var="full size">Mini size</label>
-			</li>
+            <<form class="mb-9 pb-2">
+                <div class="row align-items-end">
+                    <div class="form-group col-sm-4">
+                        <label class="text-dark fw-semibold fs-15px pb-6" for="number">Số lượng: </label>
+                        <div class="input-group position-relative w-100">
+                            <a href="#" class="shop-down position-absolute translate-middle-y top-50 start-0 ps-7 product-info-2-minus"><i class="far fa-minus"></i></a>
+                            <input name="number" type="number" id="number" class="product-info-2-quantity form-control w-100 px-6 text-center border-0 fs-18px fw-bold" value="1" required="">
+                            <a href="#" class="shop-up position-absolute translate-middle-y top-50 end-0 pe-7 product-info-2-plus">
+                                <i class="far fa-plus"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-sm-8 pt-9 mt-2 mt-sm-0 pt-sm-0">
+                        <button type="submit" class="btn-hover-bg-primary btn btn-lg fs-18px btn-dark w-100 border-0">
+                            Thêm giỏ hàng
+                        </button>
+                    </div>
+                </div>
 
-	</ul>
-</div>
+            </form>
+            <p class="mb-4 pb-2">
+                <span class="text-dark">
+                    <svg class="icon fs-28px me-2 pe-4">
+                        <use xlink:href="#icon-delivery-1"></use>
+                    </svg>Thời gian nhận hàng:
+                </span> Feb 3 - Feb 14,2021
+            </p>
+            <p class="mb-4 pb-2">
+                <span class="text-dark">
+                    <svg class="icon fs-28px me-2 pe-4">
+                        <use xlink:href="#icon-Package"></use>
+                    </svg>Miễn phí vận chuyển & trả lại:
+                </span> Tất cả các đơn hàng trên 200.000 VNĐ
+            </p>
+            <div class="card border-0 bg-gray rounded text-center">
+                <div class="pt-8 px-5">
+                    <img class="img-fluid" src="../assets/images/shop/product-info-2.png" alt="pay" width="357" height="28">
+                </div>
+                <div class="card-body pt-6 pb-7">
+                    <p class="fs-14px fw-normal mb-0">Guarantee safe &amp; secure checkout</p>
+                </div>
+            </div>
+            <ul class="list-unstyled border-top pt-7 mt-7">
+                <li class="d-flex mb-4 pb-2">
+                    <span class="text-dark fw-semibold fs-14px">Id:</span>
+                    <span class="ps-4">@Model.ProductId</span>
+                </li>
+                <li class="d-flex mb-4 pb-2">
+                    <span class="text-dark fw-semibold fs-14px">Danh mục:</span>
+                    <a href="danhmuc/@Model.Cate.Alias" class="ps-4">@Model.Cate.CateName</a>
+                </li>
+            </ul>
 
-	<p class="text-dark fw-semibold mb-6">Quantity: </p>
-		<div class="mb-2 pb-4">
-			<input type="radio" id="buy1" name="quality" class="product-info-input me-4" checked="">
-			<label for="buy1" class="text-dark product-info-label product-info-label-secondary">
-				Buy 1 -
-				<span class="text-decoration-line-through mx-3 text-body">$39.00</span>
-				<span class="fw-bold">$29.00</span>
-			</label>
-			<span class="badge badge-primary fs-12px border text-primary fw-bold ms-4">Saved 10%</span>
-		</div>
-		<div class="mb-2 pb-4">
-			<input type="radio" id="buy2" name="quality" class="product-info-input me-4">
-			<label for="buy2" class="text-dark product-info-label product-info-label-secondary">
-				Buy 2 -
-				<span class="text-decoration-line-through mx-3 text-body">$78.00</span>
-				<span class="fw-bold">$56.00</span>
-			</label>
-			<span class="badge badge-primary fs-12px border text-primary fw-bold ms-4">Saved 15%</span>
-		</div>
-		<div class="mb-2 pb-4">
-			<input type="radio" id="buy3" name="quality" class="product-info-input me-4">
-			<label for="buy3" class="text-dark product-info-label product-info-label-secondary">
-				Buy 3 -
-				<span class="text-decoration-line-through mx-3 text-body">$117.00</span>
-				<span class="fw-bold">$72.00</span>
-			</label>
-			<span class="badge badge-primary fs-12px border text-primary fw-bold ms-4">Saved 20%</span>
-		</div>
-		<div class="mb-2 pb-4">
-			<input type="radio" id="buy4" name="quality" class="product-info-input me-4">
-			<label for="buy4" class="text-dark product-info-label product-info-label-secondary">
-				Buy 4 -
-				<span class="text-decoration-line-through mx-3 text-body">$195.00</span>
-				<span class="fw-bold">$99.00</span>
-			</label>
-			<span class="badge badge-primary fs-12px border text-primary fw-bold ms-4">Saved 30%</span>
-		</div>
-	<button type="submit" class="btn btn-lg fs-18px btn-dark btn-block mb-7 mt-7 border-0 w-100 btn-hover-bg-primary">Add
-		To Bag
-	</button>
-</form>
-<div class="d-flex align-items-center flex-wrap">
-		<a href="#" class="text-decoration-none fw-bold fs-16px me-9 pe-2 d-flex align-items-center">
-			<svg class="icon fs-20px">
-				<use xlink:href="#icon-arrows-left-right-light"></use>
-			</svg>
-			<span class="ms-4 ps-2">Compare</span>
-		</a>
-		<a href="#" class="text-decoration-none fw-bold fs-16px me-9 pe-2 d-flex align-items-center">
-			<svg class="icon fs-20px">
-				<use xlink:href="#icon-heart-light"></use>
-			</svg>
-			<span class="ms-4 ps-2">Add to wishlist</span>
-		</a>
-</div>
+            <ul class="list-inline d-flex justify-content-start mb-0 fs-6">
+                <li class="list-inline-item">
+                    <a class="text-body text-decoration-none product-info-share product-info-share" href="#"><i class="fab fa-facebook-f me-4"></i> Facebook</a>
+                </li>
+                <li class="list-inline-item ms-7">
+                    <a class="text-body text-decoration-none product-info-share product-info-share" href="#"><i class="fab fa-instagram me-4"></i> Instagram</a>
+                </li>
+                <li class="list-inline-item ms-7">
+                    <a class="text-body text-decoration-none product-info-share product-info-share" href="#"><i class="fab fa-youtube me-4"></i> Youtube</a>
+                </li>
+            </ul>
 
-<ul class="list-unstyled border-top pt-7 mt-7">
-		<li class="d-flex mb-4 pb-2">
-			<span class="text-dark fw-semibold fs-14px">Sku:</span>
-			<span class="ps-4">SF09281</span>
-		</li>
-		<li class="d-flex mb-4 pb-2">
-			<span class="text-dark fw-semibold fs-14px">Categories:</span>
-			<span class="ps-4">Makeup, Skincare</span>
-		</li>
-		<li class="d-flex mb-4 pb-2">
-			<span class="text-dark fw-semibold fs-14px">Share:</span>
-			<ul class="list-inline d-flex align-items-center mb-0 col-8 col-lg-10 ps-4">
-				<li class="list-inline-item me-7">
-					<a href="#" class="fs-14px text-body product-info-share">
-						<i class="fab fa-twitter"></i>
-					</a>
-				</li>
-				<li class="list-inline-item me-7">
-					<a href="#" class="fs-14px text-body product-info-share">
-						<i class="fab fa-facebook-f"></i>
-					</a>
-				</li>
-				<li class="list-inline-item me-7">
-					<a href="#" class="fs-14px text-body product-info-share">
-						<i class="fab fa-instagram"></i>
-					</a>
-				</li>
-				<li class="list-inline-item">
-					<a href="#" class="fs-14px text-body product-info-share">
-						<i class="fab fa-youtube"></i>
-					</a>
-				</li>
-			</ul>
-		</li>
-</ul>
-		</div>
-	</div>
+        </div>
+    </div>
 </section>
 
+
+<section class="container pb-12 pb-lg-20 border-bottom pt-lg-12 pt-8" data-animated-id="4">
+    <div class="product-details-tab">
+        <ul class="nav nav-tabs border-0 justify-content-center pb-12 d-none d-md-flex" id="productTabs" role="tablist">
+            <li class="nav-item w-100 w-md-auto" role="presentation">
+                <button class="nav-link m-auto fw-semibold py-0 px-8 fs-4 fs-lg-3 border-0 text-dark active" id="product-details-tab" data-bs-toggle="tab" data-bs-target="#product-details" type="button" role="tab" aria-controls="product-details" aria-selected="true">Chi tiết sản phẩm</button>
+            </li>
+
+
+        </ul>
+        <div class="tab-content">
+            <div class="card-header border-0 bg-transparent px-0 py-4 product-tabs-mobile d-block d-md-none">
+                <h5 class="mb-0">
+                    <button class="btn lh-2 fs-18 py-3 px-6 shadow-none w-100 border text-primary" data-control="product-details-tab">Chi tiết sản phẩm</button>
+                </h5>
+            </div>
+            <div class="tab-pane active" id="product-details" role="tabpanel" aria-labelledby="product-details-tab">
+                <div>
+                    @Html.Raw(Model.Description)
+                </div>
+            </div>
+
+
+            <div class="card-header border-0 bg-transparent px-0 py-4 product-tabs-mobile d-block d-md-none">
+                <h5 class="mb-0">
+                    <button class="btn lh-2 fs-18 py-3 px-6 shadow-none w-100 border text-primary" data-control="ingredients-tab">Ingredients</button>
+                </h5>
+            </div>
+            <div class="tab-pane" id="ingredients" role="tabpanel" aria-labelledby="ingredients-tab">
+                <div class="pb-3">
+                    <div class="table-responsive mb-5">
+                        <table class="table table-borderless mb-0">
+                            <tbody>
+                                <tr>
+                                    <td class="ps-0 py-5 pe-5 text-dark">CAS</td>
+                                    <td class="text-end py-5 ps-5 pe-0">92128-82-0, 9057-02-7</td>
+                                </tr>
+                                <tr>
+                                    <td class="ps-0 py-5 pe-5 text-dark">INCI</td>
+                                    <td class="text-end py-5 ps-5 pe-0">
+                                        Nannochloropsis Oculata (micro algae)
+                                        extract, pullulan
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="ps-0 py-5 pe-5 text-dark">Composition</td>
+                                    <td class="text-end py-5 ps-5 pe-0">
+                                        Nannochloropsis Oculata (micro algae)
+                                        extract, pullulan, water, ethanol
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="ps-0 py-5 pe-5 text-dark">Appearance</td>
+                                    <td class="text-end py-5 ps-5 pe-0">Yellow to amber, viscous liquid</td>
+                                </tr>
+                                <tr>
+                                    <td class="ps-0 py-5 pe-5 text-dark">Solubility</td>
+                                    <td class="text-end py-5 ps-5 pe-0">Soluble in water &amp; ethanol</td>
+                                </tr>
+                                <tr>
+                                    <td class="ps-0 py-5 pe-5 text-dark">Storage</td>
+                                    <td class="text-end py-5 ps-5 pe-0">Store refrigerated (4-8oC / 39-46oF)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="mb-0">
+                        Perfect for Equestrian Trang chủs or every horse lover. Designer premium
+                        signature aluminum alloy all Arthur Court is compliance with FDA
+                        regulations. Aluminum Serveware can be chilled in the freezer or
+                        refrigerator and warmed in the oven to 350. Wash by hand with mild dish
+                        soap and dry immediately – do not put in the dishwasher. Comes in Gift
+                        Box perfect for Equestrian Trang chủ or Horse lover in your life.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<section class="container pb-15 pb-lg-20 pt-lg-12 pt-8" data-animated-id="6">
+    <div class="text-center">
+        <h2 class="mb-12">Có thể bạn thích</h2>
+    </div>
+
+    <div class="row">
+        @if(lsProducts != null){
+            foreach(var item in lsProducts){
+                string url = $"/{item.Alias}-{item.ProductId}.html";
+                <div class="mb-6 col-md-3" >
+                    <div class="card card-product grid-2 bg-transparent border-0">
+                        <figure class="card-img-top position-relative mb-7 overflow-hidden">
+                            <a href="@url" class="hover-zoom-in d-block" title="@item.ProductName" tabindex="-1">
+                                <img src="~/images/products/@item.Thumb" data-src="~/images/products/@item.Thumb" class="img-fluid lazy-image w-100" alt="@item.Title " loading="lazy" data-ll-status="native" style="height:260px ">
+                            </a>
+                            <div class="position-absolute product-flash z-index-2 "><span class="badge badge-product-flash on-sale bg-primary">-36%</span></div>
+                            <div class="position-absolute d-flex z-index-2 product-actions  vertical">
+                                <a class="text-dark bg-white bg-dark-hover text-light-hover rounded-circle square shadow-sm product-action quick-view" href="#" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Xem nhanh" tabindex="-1">
+                                    <span data-bs-toggle="modal" data-bs-target="#quickViewModal" class="d-flex align-items-center justify-content-center">
+                                        <svg class="icon icon-eye-light">
+                                            <use xlink:href="#icon-eye-light"></use>
+                                        </svg>
+                                    </span>
+                                </a>
+                                <a class="text-dark bg-white bg-dark-hover text-light-hover rounded-circle square shadow-sm product-action wishlist" href="#" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Thêm danh sách yêu thích" tabindex="-1">
+                                    <svg class="icon icon-star-light">
+                                        <use xlink:href="#icon-star-light"></use>
+                                    </svg>
+                                </a>
+                                <a class="text-dark bg-white bg-dark-hover text-light-hover rounded-circle square shadow-sm product-action compare" href="../shop/compare.html" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="So sánh" tabindex="-1">
+                                    <svg class="icon icon-arrows-left-right-light">
+                                        <use xlink:href="#icon-arrows-left-right-light"></use>
+                                    </svg>
+                                </a>
+                            </div>
+                            <a href="#" class="btn btn-add-to-cart btn-dark btn-hover-bg-primary btn-hover-border-primary position-absolute z-index-2 text-nowrap fs-14px" tabindex="-1">Thêm vào giỏ hàng</a>
+                        </figure>
+                        <div class="card-body text-center p-0">
+                            <span class="d-flex align-items-center price text-dark fw-bold justify-content-center mb-3 fs-6">
+                                @if (item.Discount == 0 || item.Discount == null)
+                                {
+                                    <ins class="text-decoration-none text-dark fw-semibold me-4">@item.Price.Value.ToString("#,##0") VNĐ</ins>
+                                }
+                                else
+                                {
+                                    <del class=" text-body fw-500 me-4 fs-15px">@item.Price.Value.ToString("#,##0") VNĐ</del>
+                                    <ins class="text-decoration-none text-dark fw-semibold">@item.Discount.Value.ToString("#,##0") VNĐ</ins>
+
+                                }
+                            </span>
+
+                            <h4 class="product-title card-text text-primary-hover text-dark fs-15px fw-500 mb-3"><a class="text-decoration-none text-reset" href="@url" tabindex="-1">@item.ProductName</a></h4>
+                            <div class="d-flex align-items-center justify-content-center">
+                                <span class="rate text-primary fs-14px d-flex align-items-center">
+                                    <svg class="icon star">
+                                        <use xlink:href="#star"></use>
+                                    </svg>
+                                    <svg class="icon star">
+                                        <use xlink:href="#star"></use>
+                                    </svg>
+                                    <svg class="icon star">
+                                        <use xlink:href="#star"></use>
+                                    </svg>
+                                    <svg class="icon star">
+                                        <use xlink:href="#star"></use>
+                                    </svg>
+                                    <svg class="icon star-o">
+                                        <use xlink:href="#star-o"></use>
+                                    </svg>
+                                </span><span class="reviews ms-4">2947 lượt xem</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            }
+        }
+    </div>
+</section>

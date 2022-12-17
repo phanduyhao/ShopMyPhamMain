@@ -1,6 +1,8 @@
 ﻿@model IEnumerable<ShopMyPham.Models.Product>
 
 @{
+    int CurrentPage = ViewBag.CurrentPage;
+    int PageNext = CurrentPage + 1;
     ViewData["Title"] = "Danh sách sản phẩm";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
@@ -106,11 +108,36 @@
                                     }
                                 </tbody>
                             </table>
-                           @* <div aria-label="Page navigation example">
-                                <ul class="pagination">
-                                    <pager class="pager-container" list="@Model" asp-area="Admin" asp-controller="AdminProducts" asp-route-CateId="$ViewBag.CurrentPage" asp-action="Index"></pager>
-                                </ul>
-                            </div>*@
+                            <div class="pagination-area pt-10">
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination justify-content-center">
+                                        @if (CurrentPage > 1)
+                                        {
+                                            <li class="page-item">
+                                                <a class="page-link" href="/Admin/AdminProducts?page=@(CurrentPage - 1)" aria-label="Previous">
+                                                    <span class="fa fa-chevron-left"></span>
+                                                </a>
+                                            </li>
+                                        }
+                                        else
+                                        {
+                                            <li class="page-item">
+                                                <a class="page-link" href="/Admin/AdminProducts" aria-label="Previous">
+                                                    <span class="fa fa-chevron-left"></span>
+                                                </a>
+                                            </li>
+                                        }
+
+                                        <li class="page-item active"><a class="page-link" href="/Admin/AdminProducts?page=@CurrentPage">@CurrentPage</a></li>
+                                        <li class="page-item"><a class="page-link" href="/Admin/AdminProducts?page=@PageNext">@PageNext</a></li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="/Admin/AdminProducts?page=@PageNext" aria-label="Next">
+                                                <span class="fa fa-chevron-right"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
                         </div>
                     </div>
                 </div>

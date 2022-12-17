@@ -29,6 +29,18 @@ namespace ShopMyPham.Areas.Admin.Controllers
         // GET: Admin/AdminNews
         public IActionResult Index(int? page)
         {
+            var ls = _context.News.AsNoTracking().ToList();
+            foreach(var item in ls)
+            {
+                if(item.CreateDate == null)
+                {
+                    item.CreateDate = DateTime.Now;
+                    _context.Update(item);
+                    _context.SaveChanges();
+                }
+            }
+
+
             var pageNumber = page == null || page <= 0 ? 1 : page.Value;
             var Pagesize = 20;
             var IsNews = _context.News.AsNoTracking().OrderByDescending(x => x.PostId);
@@ -81,6 +93,7 @@ namespace ShopMyPham.Areas.Admin.Controllers
                 }
                 if (string.IsNullOrEmpty(news.Thumb)) news.Thumb = "default.jpg";
                 news.Alias = Utilities.SEOUrl(news.Title);
+                news.CreateDate = DateTime.Now;
                 _context.Add(news);
                 await _context.SaveChangesAsync();
                 _notyfService.Success("Thêm thành công!");

@@ -1,0 +1,60 @@
+﻿@model IEnumerable<ShopMyPham.Models.Menu>
+
+@{
+    ViewData["Title"] = "Quản lý Menu";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="pagetitle">
+
+    <nav>
+        <ol class="breadcrumb">
+            <a asp-controller="Home" asp-area="Admin" asp-action="Index" class="breadcrumb-item">Home</a>
+            <a asp-controller="AdminMenu" asp-area="Admin" asp-action="Index" class="breadcrumb-item">Danh sách Menu</a>
+            <a asp-controller="Home" asp-area="Admin" asp-action="Index" class="breadcrumb-item active">Thông tin Menu</a>
+        </ol>
+    </nav>
+    <div class="card-body">
+        <div class="row mt-4">
+            <div class="col-lg-8">
+            </div>
+            <div class="col-lg-4 text-end mb-3">
+                <a class="btn btn-primary" asp-controller="AdminMenu" asp-action="Create">
+                    <i class="fa-solid fa-plus"></i>
+                    <span>Thêm Menu</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Tên Menu</th>
+            <th scope="col">Cấp bậc</th>
+            <th scope="col">Mô tả</th>
+            <th scope="col">Tác vụ</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row">@item.MenuId</th>
+                    <td>@item.MenuName</td>
+                    <td>@item.Ordering</td>
+                    <td>@item.Description</td>
+                    <td>
+                        <a asp-area="Admin" asp-controller="AdminMenu" asp-action="Details" asp-route-id="@item.MenuId" class="btn btn-success">View</a>
+                        <a asp-area="Admin" asp-controller="AdminMenu" asp-action="Edit" asp-route-id="@item.MenuId" class="btn btn-warning">Edit</a>
+                        <a asp-area="Admin" asp-controller="AdminMenu" asp-action="Delete" asp-route-id="@item.MenuId" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+
+    </tbody>
+</table>

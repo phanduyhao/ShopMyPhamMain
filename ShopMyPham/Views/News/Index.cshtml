@@ -2,8 +2,10 @@
 @model PagedList.Core.IPagedList<ShopMyPham.Models.News>
 
 @{
-    ViewData["Title"] = "Tin tức - " + ViewBag.CurrentPage;
+    ViewData["Title"] = "Tin tức  - " + ViewBag.CurrentPage;
     Layout = "~/Views/Shared/_Layout.cshtml";
+    int PageCurrent = ViewBag.CurrentPage;
+    int PageNext = PageCurrent + 1;
 }
 
 <div class="container mt-10 pb-3" data-animated-id="2">
@@ -11,23 +13,27 @@
 
   
     <div class="row gy-50px">
+
+       
+
         @if (Model != null && Model.Count() > 0)
         {
             foreach (var item in Model)
             {
+                string url = $"/tin-tuc/{item.Alias}-{item.PostId}.html";
                 <div class="col-md-6 col-lg-4">
                     <article class="card card-post-grid-1 bg-transparent border-0 animate__fadeInUp animate__animated" data-animate="fadeInUp">
                         <figure class="card-img-top position-relative mb-10">
-                            <a href="#" class="hover-shine hover-zoom-in d-block" title="How to Plop Hair for Bouncy, Beautiful Curls">
-                                <img data-src="~/images/new/@item.Thumb" class="img-fluid w-100 loaded" alt="@item.Title" width="370" height="450" loading="lazy" src="~/images/new/@item.Thumb" data-ll-status="loaded">
+                            <a href="@url"class="hover-shine hover-zoom-in d-block" title="@item.Title">
+                                <img data-src="~/images/new/@item.Thumb" class="img-fluid w-100 loaded" alt="@item.Title" style="height:210px" loading="lazy" src="~/images/new/@item.Thumb" data-ll-status="loaded">
                             </a>
-                            <a href="#" class="btn btn-hover-bg-dark btn-hover-text-light fw-500 btn-gray-weak post-cat position-absolute top-100 start-50 translate-middle py-2 px-7 border-0" title="Life style">Life style</a>
+                            <a href="@url" class="btn btn-hover-bg-dark btn-hover-text-light fw-500 btn-gray-weak post-cat position-absolute top-100 start-50 translate-middle py-2 px-7 border-0" title="Life style">Life style</a>
                         </figure>
                         <div class="card-body text-center px-md-9 py-0">
-                            <h4 class="card-title lh-base mb-9"><a class="text-decoration-none" href="#" title="How to Plop Hair for Bouncy, Beautiful Curls">How to Plop Hair for Bouncy, Beautiful Curls</a></h4>
+                            <h4 class="card-title lh-base mb-9"><a class="text-decoration-none" href="@url" title="@item.Title">@item.Title</a></h4>
                             <ul class="post-meta list-inline lh-1 d-flex flex-wrap justify-content-center m-0">
-                                <li class="list-inline-item border-end pe-5 me-5">By <a href="#" title="Admin">Admin</a></li>
-                                <li class="list-inline-item">Jan 19th, 2021</li>
+                                <li class="list-inline-item border-end pe-5 me-5">By <a href="@url" title="Admin">Admin</a></li>
+                                <li class="list-inline-item">@item.CreateDate.Value.ToShortDateString()</li>
                             </ul>
                         </div>
                     </article>
@@ -36,27 +42,38 @@
             }
         }
     </div>
-    <nav class="d-flex mt-13 pt-3 justify-content-center animate__fadeInUp animate__animated" aria-label="pagination" data-animate="fadeInUp">
-        <ul class="pagination m-0">
-            <li class="page-item disabled">
-                <a class="page-link" href="#" aria-label="Previous">
-                    <svg class="icon">
-                        <use xlink:href="#icon-angle-double-left"></use>
-                    </svg>
-                </a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item active"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">...</a></li>
-            <li class="page-item"><a class="page-link" href="#">6</a></li>
-            <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next">
-                    <svg class="icon">
-                        <use xlink:href="#icon-angle-double-right"></use>
-                    </svg>
-                </a>
-            </li>
-        </ul>
-    </nav>
-</div>
+
+    <div class="col-lg-12">
+        <div class="pagination-area pt-10">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    @if (PageCurrent > 1)
+                    {
+                        <li class="page-item">
+                            <a class="page-link" href="/Tin-tuc.html?page=@(PageCurrent - 1)" aria-label="Previous">
+                                <span class="fa fa-chevron-left"></span>
+                            </a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="page-item">
+                            <a class="page-link" href="/Tin-tuc.html" aria-label="Previous">
+                                <span class="fa fa-chevron-left"></span>
+                            </a>
+                        </li>
+                    }
+
+                    <li class="page-item active"><a class="page-link" href="/Tin-tuc.html?page=@PageCurrent">@PageCurrent</a></li>
+                    <li class="page-item"><a class="page-link" href="/Tin-tuc.html?page=@PageNext">@PageNext</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="/Tin-tuc.html?page=@PageNext" aria-label="Next">
+                            <span class="fa fa-chevron-right"></span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+@*  
+*@</div>

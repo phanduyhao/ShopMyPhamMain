@@ -1,4 +1,5 @@
-﻿    <!-- Header -->
+﻿
+<!-- Header -->
 <header id="header" class="header header-sticky header-sticky-smart disable-transition-all">
     <div class="topbar bg-primary">
         <div class="container-wide container">
@@ -34,7 +35,7 @@
                                 <div class="megamenu-shop container-wide py-8 px-12 ">
                                     <div class="row">
                                         <div class="col">
-                                           <a  asp-controller="Shop" asp-action="ShopProduct"
+                                           <a  href="/shop.html"
                                                        class="">
                                                         <h6 class="border-hover-target fs-18px">TẤT CẢ SẢN PHẨM</h6>
                                                     </a>
@@ -43,48 +44,31 @@
                                             <h6 class="fs-18px">Nước hoa</h6>
                                             <ul class="list-unstyled mb-0">
                                                  <li>
-                                                    <a  asp-controller="Shop" asp-action="Nuoc_Hoa_Nam"
+                                                    <a  href="/danhmuc/nuoc-hoa-nam"
                                                        class="border-hover text-decoration-none py-3 d-block">
                                                         <span class="border-hover-target">Nước hoa cho Nam</span>
                                                     </a>
                                                 </li>
                                                  <li>
-                                                    <a  asp-controller="Shop" asp-action="Nuoc_Hoa_Nu"
+                                                    <a  href="/danhmuc/nuoc-hoa-nu"
                                                        class="border-hover text-decoration-none py-3 d-block">
                                                         <span class="border-hover-target">Nước hoa cho Nữ</span>
                                                     </a>
                                                 </li>
-                                                 <li>
-                                                    <a  asp-controller="Shop" asp-action="Huong_Trai_Cay"
-                                                       class="border-hover text-decoration-none py-3 d-block">
-                                                        <span class="border-hover-target">Hương trái cây</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a  asp-controller="Shop" asp-action="Huong_Bien"
-                                                       class="border-hover text-decoration-none py-3 d-block">
-                                                        <span class="border-hover-target">Hương Biển</span>
-                                                    </a>
-                                                </li>
+                                               
                                             </ul>
                                         </div>
                                         <div class="col">
                                             <h6 class="fs-18px">Bộ mỹ phẩm du lịch</h6>
                                             <ul class="list-unstyled mb-0">
                                                 <li>
-                                                    <a asp-controller="Shop" asp-action="Cham_Soc_Da"
+                                                    <a href="/danhmuc/sua-rua-mat"
                                                        class="border-hover text-decoration-none py-3 d-block">
-                                                        <span class="border-hover-target">Chăm sóc da</span>
+                                                        <span class="border-hover-target">Sữa rửa mặt</span>
                                                     </a>
                                                 </li>
                                                  <li>
-                                                    <a asp-controller="Shop" asp-action="Dau_Thom"
-                                                       class="border-hover text-decoration-none py-3 d-block">
-                                                        <span class="border-hover-target">Dầu thơm</span>
-                                                    </a>
-                                                </li>
-                                                 <li>
-                                                    <a asp-controller="Shop" asp-action="Kem_Chong_Nang"
+                                                    <a href="/danhmuc/kem-chong-nang"
                                                        class="border-hover text-decoration-none py-3 d-block">
                                                         <span class="border-hover-target">Kem chống nắng</span>
                                                     </a>
@@ -95,13 +79,13 @@
                                             <h6 class="fs-18px">Chăm sóc tóc</h6>
                                             <ul class="list-unstyled mb-0">
                                                 <li>
-                                                    <a asp-controller="Shop" asp-action="Dau_Goi"
+                                                    <a href="/danhmuc/dau-goi"
                                                        class="border-hover text-decoration-none py-3 d-block">
                                                         <span class="border-hover-target">Dầu gội</span>
                                                     </a>
                                                 </li>
                                                   <li>
-                                                    <a asp-controller="Shop" asp-action="Dau_Xa"
+                                                    <a href="/danhmucdau-xa"
                                                        class="border-hover text-decoration-none py-3 d-block">
                                                         <span class="border-hover-target">Dầu xả</span>
                                                     </a>
@@ -112,13 +96,13 @@
                                             <h6 class="fs-18px">Chăm sóc môi</h6>
                                             <ul class="list-unstyled mb-0">
                                                 <li>
-                                                    <a asp-controller="Shop" asp-action="Son_Duong"
+                                                    <a href="/danhmuc/son-duong"
                                                        class="border-hover text-decoration-none py-3 d-block">
                                                         <span class="border-hover-target">Son dưỡng</span>
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a asp-controller="Shop" asp-action="Son_Chi"
+                                                    <a href="/danhmuc/son-chi"
                                                        class="border-hover text-decoration-none py-3 d-block">
                                                         <span class="border-hover-target">Son chì</span>
                                                     </a>
@@ -135,13 +119,13 @@
                             <ul class="dropdown-menu py-6 ps-6"
                                 aria-labelledby="menu-item-pages">
                                 <li>
-                                    <a asp-controller="About" asp-action="AboutUs"
+                                    <a href="/gioi-thieu.html"
                                        class="border-hover text-decoration-none py-3 d-block">
                                         <span class="border-hover-target">Giới thiệu</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a asp-controller="About" asp-action="Contact"
+                                    <a href="/lien-he.html"
                                        class="border-hover text-decoration-none py-3 d-block">
                                         <span class="border-hover-target">Liên hệ</span>
                                     </a>
@@ -149,7 +133,7 @@
                             </ul>
                         </li>
                         <li class="nav-item transition-all-xl-1 py-11 me-xxl-12 me-xl-10 dropdown dropdown-hover dropdown-fullwidth">
-                            <a class="nav-link d-flex justify-content-between position-relative py-0 px-0 text-uppercase fw-semibold ls-1 fs-14px" asp-controller="News" asp-action="Index">Tin tức</a>
+                            <a class="nav-link d-flex justify-content-between position-relative py-0 px-0 text-uppercase fw-semibold ls-1 fs-14px" href="/Tin-tuc.html">Tin tức</a>
                         </li>
                     </ul>
                 </div>
@@ -1601,7 +1585,7 @@
                         <div class="megamenu-shop container-wide py-8 px-12">
                            <div class="row">
                                 <div class="col">
-                                    <a asp-controller="Shop" asp-action="ShopProduct"
+                                    <a href="/shop.html"
                                        class="">
                                         <h6 class="border-hover-target fs-18px">TẤT CẢ SẢN PHẨM</h6>
                                     </a>
@@ -1753,13 +1737,13 @@
                      <ul class="dropdown-menu py-6" aria-labelledby="menu-item-pages">
                               
                         <li>
-                            <a asp-controller="About" asp-action="AboutUs"
+                            <a  href="/gioi-thieu.html"
                                class="border-hover text-decoration-none py-3 d-block">
                                 <span class="border-hover-target">Giới thiệu</span>
                             </a>
                         </li>
                          <li>
-                            <a asp-controller="About" asp-action="Contact"
+                            <a href="/lien-he.html"
                                class="border-hover text-decoration-none py-3 d-block">
                                 <span class="border-hover-target">Liên hệ</span>
                             </a>
@@ -1767,7 +1751,7 @@
                                 </ul>
                                 </li>
                                 <li class="nav-item transition-all-xl-1 py-0 dropdown dropdown-fullwidth">
-                                    <a class="nav-link d-flex justify-content-between position-relative text-uppercase fw-semibold ls-1 fs-15px " href="#" >Tin tức</a
+                                    <a class="nav-link d-flex justify-content-between position-relative text-uppercase fw-semibold ls-1 fs-15px " href="/Tin-tuc.html" >Tin tức</a
                         >
                     </li>
                     </ul>

@@ -20,6 +20,7 @@ namespace ShopMyPham.Models
         public virtual DbSet<Category> Categories { get; set; } = null!;
         public virtual DbSet<Customer> Customers { get; set; } = null!;
         public virtual DbSet<Location> Locations { get; set; } = null!;
+        public virtual DbSet<Menu> Menus { get; set; } = null!;
         public virtual DbSet<News> News { get; set; } = null!;
         public virtual DbSet<Order> Orders { get; set; } = null!;
         public virtual DbSet<OrderDetail> OrderDetails { get; set; } = null!;
@@ -145,6 +146,15 @@ namespace ShopMyPham.Models
                 entity.Property(e => e.Slug).HasMaxLength(100);
 
                 entity.Property(e => e.Type).HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<Menu>(entity =>
+            {
+                entity.ToTable("Menu");
+
+                entity.Property(e => e.Description).HasMaxLength(255);
+
+                entity.Property(e => e.MenuName).HasMaxLength(50);
             });
 
             modelBuilder.Entity<News>(entity =>

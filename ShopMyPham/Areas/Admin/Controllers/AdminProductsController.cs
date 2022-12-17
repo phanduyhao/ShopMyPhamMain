@@ -25,10 +25,10 @@ namespace ShopMyPham.Areas.Admin.Controllers
 
 
         // GET: Admin/AdminProducts
-        public IActionResult Index(int page = 1, int CateId = 0)
+        public IActionResult Index(int? page, int CateId = 0)
         {
-            var pageNumber = page;
-            var pageSize = 200;
+            var pageNumber = page == null || page <= 0 ? 1 : page.Value;
+            var pageSize = 20;
 
             List<Product> lsProducts = new List<Product>();
             if (CateId != 0)

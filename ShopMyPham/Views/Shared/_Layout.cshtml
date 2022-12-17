@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>@ViewData["Title"]</title>
-    <link rel="icon" href="~/assets/images/favicon.ico" />
+    <link rel="icon" href="~/assets/images/logoGR3-cut.png" />
     <link rel="stylesheet" href="~/assets/vendors/lightgallery/css/lightgallery-bundle.min.css" />
     <link rel="stylesheet" href="~/assets/vendors/fontawesome/css/all.min.css" />
     <link rel="stylesheet" href="~/assets/vendors/animate/animate.min.css" />
@@ -19,11 +19,12 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
      <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+
 </head>
 <body>
     <!--Header-->
     @await Html.PartialAsync("_NavbarPartialView.cshtml")
-
+    
       <!-- content -->
     <main id="content" class="wrapper layout-page" role="main">
         @RenderBody();

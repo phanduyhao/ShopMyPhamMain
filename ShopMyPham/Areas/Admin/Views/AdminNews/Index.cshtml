@@ -2,9 +2,13 @@
 @model PagedList.Core.IPagedList<ShopMyPham.Models.News>
 
 @{
+    int CurrentPage = ViewBag.CurrentPage;
+    int PageNext = CurrentPage + 1;
     ViewData["Title"] = "Danh sách Tin tức : Page " + ViewBag.CurrentPage;
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+
 }
+
 
 <div class="main-content">
     <div class="page-header">
@@ -38,6 +42,7 @@
                                         <th class="sorting">ID</th>
                                         <th class="sorting">Tiêu đề</th>
                                         <th class="sorting">Trạng thái</th>
+                                        <th class="sorting">Ngày tạo</th>
                                         <th class="sorting">#</th>
                                     </tr>
                                 </thead>
@@ -66,6 +71,7 @@
                                                         </div>
                                                     }
                                                 </td>
+                                                <td>@item.CreateDate</td>
                                                 <td class="text-end">
                                                     <a asp-area="Admin" asp-controller="AdminNews" asp-action="Details" asp-route-id="@item.PostId" class="btn btn-success">View</a>
                                                     <a asp-area="Admin" asp-controller="AdminNews" asp-action="Edit" asp-route-id="@item.PostId" class="btn btn-warning">Edit</a>
@@ -76,9 +82,38 @@
                                     }
                                 </tbody>
                             </table>
+                            <div class="pagination-area pt-10">
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination justify-content-center">
+                                        @if (CurrentPage > 1)
+                                        {
+                                            <li class="page-item">
+                                                <a class="page-link" href="/Admin/AdminNews?page=@(CurrentPage - 1)" aria-label="Previous">
+                                                    <span class="fa fa-chevron-left"></span>
+                                                </a>
+                                            </li>
+                                        }
+                                        else
+                                        {
+                                            <li class="page-item">
+                                                <a class="page-link" href="/Admin/AdminNews" aria-label="Previous">
+                                                    <span class="fa fa-chevron-left"></span>
+                                                </a>
+                                            </li>
+                                        }
+
+                                        <li class="page-item active"><a class="page-link" href="/Admin/AdminNews?page=@CurrentPage">@CurrentPage</a></li>
+                                        <li class="page-item"><a class="page-link" href="/Admin/AdminNews?page=@PageNext">@PageNext</a></li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="/Admin/AdminNews?page=@PageNext" aria-label="Next">
+                                                <span class="fa fa-chevron-right"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
                         </div>
                     </div>
-                    <div class="row"><div class="col-sm-12 col-md-5"><div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Showing 1 to 7 of 7 entries</div></div><div class="col-sm-12 col-md-7"><div class="dataTables_paginate paging_simple_numbers float-end" id="DataTables_Table_0_paginate"><ul class="pagination"><li class="paginate_button page-item previous disabled" id="DataTables_Table_0_previous"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li><li class="paginate_button page-item active"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item next disabled" id="DataTables_Table_0_next"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="2" tabindex="0" class="page-link">Next</a></li></ul></div></div></div>
                 </div>
             </div>
         </div>

@@ -5,8 +5,6 @@ namespace ShopMyPham.Models
 {
     public partial class Product
     {
-        private Category cate;
-
         public Product()
         {
             OrderDetails = new HashSet<OrderDetail>();
