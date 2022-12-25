@@ -24,6 +24,8 @@ namespace ShopMyPham.Models
         public string? Password { get; set; }
         public DateTime? LastLogin { get; set; }
         public bool? Active { get; set; }
+        public string? Salt { get; set; }
+        public string? Alias { get; set; }
 
         public virtual Location? Location { get; set; }
         public virtual ICollection<Order> Orders { get; set; }

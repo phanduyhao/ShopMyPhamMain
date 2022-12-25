@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using ShopMyPham.ModelViews;
 
 namespace ShopMyPham.Models
 {
@@ -38,9 +39,16 @@ namespace ShopMyPham.Models
                 optionsBuilder.UseSqlServer("Server=ADMIN\\SQLEXPRESS;Database=ShopMyPham;Integrated Security=true");
             }
         }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+           /* base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<CartItem>(entity =>
+            {
+                entity.HasKey(x=>x.Id);
+
+            });
+            modelBuilder.Entity<CartItem>().HasNoKey();*/
+
             modelBuilder.UseCollation("SQL_Latin1_General_CP1_CI_AS");
 
             modelBuilder.Entity<Account>(entity =>
@@ -105,6 +113,8 @@ namespace ShopMyPham.Models
 
                 entity.Property(e => e.Address).HasMaxLength(250);
 
+                entity.Property(e => e.Alias).HasMaxLength(250);
+
                 entity.Property(e => e.Avatar).HasMaxLength(250);
 
                 entity.Property(e => e.Birthday).HasColumnType("datetime");
@@ -126,6 +136,10 @@ namespace ShopMyPham.Models
                 entity.Property(e => e.Phone)
                     .HasMaxLength(12)
                     .IsUnicode(false);
+
+                entity.Property(e => e.Salt)
+                    .HasMaxLength(50)
+                    .IsFixedLength();
 
                 entity.HasOne(d => d.Location)
                     .WithMany(p => p.Customers)
@@ -344,5 +358,7 @@ namespace ShopMyPham.Models
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+        public DbSet<ShopMyPham.ModelViews.CartItem> CartItem { get; set; }
     }
 }

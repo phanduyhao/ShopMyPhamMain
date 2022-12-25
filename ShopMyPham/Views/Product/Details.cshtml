@@ -5,7 +5,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     List<Product> lsProducts = ViewBag.SanPham;
 }
-
+<style>
+    .add-to-cart{
+        padding:0;
+    }
+</style>
 <section class="z-index-2 position-relative pb-2 mb-12 " data-animated-id="1">
     
     <div class="bg-gray-weak mb-3">
@@ -127,10 +131,11 @@
                             </a>
                         </div>
                     </div>
-                    <div class="col-sm-8 pt-9 mt-2 mt-sm-0 pt-sm-0">
+                    <div class="col-sm-8 pt-9 mt-2 mt-sm-0 pt-sm-0 add-to-cart">
                         <button type="submit" class="btn-hover-bg-primary btn btn-lg fs-18px btn-dark w-100 border-0">
                             Thêm giỏ hàng
                         </button>
+                        <input hidden asp-for="ProductId" />
                     </div>
                 </div>
 
@@ -274,14 +279,21 @@
     <div class="row">
         @if(lsProducts != null){
             foreach(var item in lsProducts){
+                float dsc = (item.Price.Value - item.Discount.Value);
+                float poy = dsc / item.Price.Value * 100;
+                double poy2 = Math.Round(poy);
                 string url = $"/{item.Alias}-{item.ProductId}.html";
-                <div class="mb-6 col-md-3" >
+                <form class="mb-6 col-md-3" >
                     <div class="card card-product grid-2 bg-transparent border-0">
                         <figure class="card-img-top position-relative mb-7 overflow-hidden">
                             <a href="@url" class="hover-zoom-in d-block" title="@item.ProductName" tabindex="-1">
                                 <img src="~/images/products/@item.Thumb" data-src="~/images/products/@item.Thumb" class="img-fluid lazy-image w-100" alt="@item.Title " loading="lazy" data-ll-status="native" style="height:260px ">
                             </a>
-                            <div class="position-absolute product-flash z-index-2 "><span class="badge badge-product-flash on-sale bg-primary">-36%</span></div>
+                            @if(item.Discount.Value > 0){
+                                <div class="position-absolute product-flash z-index-2 "><span class="badge badge-product-flash on-sale bg-primary">@poy2%<span></div>
+                            }else{
+                                <div class="d-none"><span class="badge badge-product-flash on-sale bg-primary">@poy2%<span></div>
+                            }
                             <div class="position-absolute d-flex z-index-2 product-actions  vertical">
                                 <a class="text-dark bg-white bg-dark-hover text-light-hover rounded-circle square shadow-sm product-action quick-view" href="#" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Xem nhanh" tabindex="-1">
                                     <span data-bs-toggle="modal" data-bs-target="#quickViewModal" class="d-flex align-items-center justify-content-center">
@@ -301,7 +313,10 @@
                                     </svg>
                                 </a>
                             </div>
-                            <a href="#" class="btn btn-add-to-cart btn-dark btn-hover-bg-primary btn-hover-border-primary position-absolute z-index-2 text-nowrap fs-14px" tabindex="-1">Thêm vào giỏ hàng</a>
+                            <div class="add-to-cart">
+                                <a href="javascript:void(0)" class="btn btn-add-to-cart btn-dark btn-hover-bg-primary btn-hover-border-primary position-absolute z-index-2 text-nowrap fs-14px" tabindex="-1">Thêm vào giỏ hàng</a>
+                                <input hidden asp-for="ProductId" />
+                            </div>
                         </figure>
                         <div class="card-body text-center p-0">
                             <span class="d-flex align-items-center price text-dark fw-bold justify-content-center mb-3 fs-6">
@@ -340,9 +355,48 @@
                         </div>
                     </div>
 
-                </div>
+                </form>
 
             }
         }
     </div>
 </section>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $(function () {
+                $(".add-to-cart").click(function () {
+                    var productid = $('#ProductId').val();
+                    var soLuong = $('#txtsoLuong').val();
+                    $.ajax({
+                        url: '/api/cart/add',
+                        type: "POST",
+                        dataType: "JSON",
+                        data: {
+                            productID: productid,
+                            amount: soLuong
+                        },
+                        success: function (response) {
+                            if (response.result == 'Redirect') {
+                                window.location = response.url;
+                            }
+                            else {
+                                loadHeaderCart(); //Add Product success
+                                location.reload();
+                            }
+                            console.log(response); // log to the console to see whether it worked
+                        },
+                        error: function (error) {
+                            alert("There was an error posting the data to the server: " + error.responseText);
+                        }
+                    });
+                });
+                });
+            function loadHeaderCart() {
+                $('#miniCart').load("/AjaxContent/HeaderCart");
+                $('#numberCart').load("/AjaxContent/NumberCart");
+            }
+        });
+    </script>
+
+}

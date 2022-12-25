@@ -31,7 +31,7 @@ namespace ShopMyPham.Models
         public string? MetaKey { get; set; }
         public int UnitsInstock { get; set; }
 
-        public virtual Category? Cate { get; set; }
+        public virtual Category Cate { get; set; } = null!;
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }
 }

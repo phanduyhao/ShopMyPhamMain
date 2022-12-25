@@ -10,6 +10,16 @@
 
 
 }
+<style>
+    .add-to-cart{
+        padding:0;
+    }
+        .add-to-cart:hover {
+        background-color: transparent !important;
+        color: white !important;
+        transition: 0.5s !important;
+    }
+</style>
     <section class="page-title z-index-2 position-relative" data-animated-id="1">
         <div class="bg-gray-weak">
             <div class="container">
@@ -102,6 +112,10 @@
                     {
                         foreach (var item in Model)
                         {
+
+                        float dsc = (item.Price.Value - item.Discount.Value);
+                        float poy = dsc / item.Price.Value * 100;
+                        double poy2 = Math.Round(poy);
                             string url = $"/{item.Alias}-{item.ProductId}.html";
                             <div class="col-12">
                                 <div class="card flex-md-row card-product list bg-transparent border-0 animate__fadeInUp animate__animated" data-animate="fadeInUp">
@@ -110,6 +124,14 @@
                                             <img data-src="~/images/products/@item.Thumb" class="img-fluid loaded" alt="@item.Title" style="height:300px; width:350px" loading="lazy" src="~/images/products/@item.Thumb" data-ll-status="loaded">
                                         </a>
 
+                                    @if (item.Discount.Value > 0)
+                                    {
+                                        <div class="position-absolute product-flash z-index-2 "><span class="badge badge-product-flash on-sale bg-primary">@poy2%<span></div>
+                                    }
+                                    else
+                                    {
+                                        <div class="d-none"><span class="badge badge-product-flash on-sale bg-primary">@poy2%<span></div>
+                                    }
                                         <div class="position-absolute product-flash z-index-2 "><span class="badge badge-product-flash on-sale bg-primary"></span></div>
                                         <div class="position-absolute d-flex z-index-2 product-actions  horizontal">
                                             <a class="text-black bg-white bg-dark-hover text-light-hover rounded-circle square shadow-sm product-action" href="#" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Thêm giỏ hàng">
@@ -171,8 +193,9 @@
                                             <span class="reviews ms-4">2947 reviews</span>
                                         </div>
                                         <p class="product-desc mb-10">@item.ShortDesc</p>
-                                        <div class="d-flex flex-wrap horizontal">
-                                            <a href="#" class="btn btn-add-to-cart btn-dark btn-hover-bg-primary btn-hover-border-primary ">Thêm vào giỏ hàng</a>
+                                        <div class="d-flex flex-wrap horizontal add-to-cart">
+                                            <a href="javascript:void(0)" class="btn btn-add-to-cart btn-dark btn-hover-bg-primary btn-hover-border-primary ">Thêm vào giỏ hàng</a>
+                                            <input hidden asp-for="@item.ProductId" />
                                         </div>
                                     </div>
                                 </div>
@@ -415,3 +438,42 @@
 
 
 
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $(function () {
+                $(".add-to-cart").click(function () {
+                    var productid = $('#ProductId').val();
+                    var soLuong = $('#txtsoLuong').val();
+                    $.ajax({
+                        url: '/api/cart/add',
+                        type: "POST",
+                        dataType: "JSON",
+                        data: {
+                            productID: productid,
+                            amount: soLuong
+                        },
+                        success: function (response) {
+                            if (response.result == 'Redirect') {
+                                window.location = response.url;
+                            }
+                            else {
+                                loadHeaderCart(); //Add Product success
+                                location.reload();
+                            }
+                            console.log(response); // log to the console to see whether it worked
+                        },
+                        error: function (error) {
+                            alert("There was an error posting the data to the server: " + error.responseText);
+                        }
+                    });
+                });
+            });
+            function loadHeaderCart() {
+                $('#miniCart').load("/AjaxContent/HeaderCart");
+                $('#numberCart').load("/AjaxContent/NumberCart");
+            }
+        });
+    </script>
+
+}
