@@ -10,7 +10,7 @@
         </li><!-- End Dashboard Nav -->
 
         <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+            <a class="nav-link collapsed" asp-area="Admin" asp-controller="AdminOrders" asp-action="Index">
                 <i class="bi bi-menu-button-wide"></i><span>Quản lý đơn hàng</span>
             </a>
         </li><!-- End Components Nav -->
@@ -40,10 +40,6 @@
                 </li>
             </ul>
         </li><!-- End Tables Nav -->
-          <li class="nav-item">
-            <a class="nav-link collapsed" asp-controller="AdminMenu" asp-action="Index">
-                <i class="bi bi-menu-button-wide"></i><span>Quản Menu</span>
-            </a>
         </li>
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
@@ -71,21 +67,9 @@
                         <i class="bi bi-circle"></i><span>Quản lý quyền truy cập</span>
                     </a>
                 </li>
-                <li>
-                    <a href="icons-boxicons.html">
-                        <i class="bi bi-circle"></i><span>Quản lý Tỉnh / Thành</span>
-                    </a>
-                </li>
             </ul>
         </li><!-- End Icons Nav -->
-
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="users-profile.html">
-                <i class="bi bi-person"></i>
-                <span>Profile</span>
-            </a>
-        </li><!-- End Profile Page Nav -->
+<!-- End Profile Page Nav -->
 
        @* <li class="nav-item">
             <a class="nav-link collapsed" href="pages-faq.html">

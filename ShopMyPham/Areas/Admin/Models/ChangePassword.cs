@@ -3,15 +3,16 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ShopMyPham.ModelViews
 {
-    public class ChangePasswordViewModel
+    public class ChangePassword
     {
         [Key]
-        public int CustomerId { get; set; }
+        public int AccountId { get; set; }
 
-        [Display(Name = "Mật khẩu hiện tại")]
+        [Display(Name = "Email")]
+        public string? Email { get; set; }
+         [Display(Name = "Mật khẩu hiện tại")]
         [Required(ErrorMessage = "Vui lòng nhập mật khẩu hiện tại")]
         public string? PasswordNow { get; set; }
-
         [Display(Name = "Mật khẩu mới")]
         [Required(ErrorMessage = "Vui lòng nhập mật khẩu mới")]
         [MinLength(5, ErrorMessage = "Bạn cần đặt mật khẩu tối thiểu 5 ký tự")]

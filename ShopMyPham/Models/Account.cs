@@ -20,6 +20,7 @@ namespace ShopMyPham.Models
         public DateTime? LastLogin { get; set; }
         public DateTime? CreateDate { get; set; }
         public int? RoleId { get; set; }
+        public string? Salt2 { get; set; }
 
         public virtual Role? Role { get; set; }
         public virtual ICollection<News> News { get; set; }

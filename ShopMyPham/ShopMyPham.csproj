@@ -28,7 +28,6 @@
 
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Areas\Admin\Models\" />
     <Folder Include="wwwroot\assets\images\sliders\" />
     <Folder Include="wwwroot\images\category\" />
     <Folder Include="wwwroot\images\customer\" />

@@ -119,27 +119,27 @@
                 </span>
             </p>
 
-            <<form class="mb-9 pb-2">
+            <iform class="mb-9 pb-2">
                 <div class="row align-items-end">
                     <div class="form-group col-sm-4">
                         <label class="text-dark fw-semibold fs-15px pb-6" for="number">Số lượng: </label>
                         <div class="input-group position-relative w-100">
                             <a href="#" class="shop-down position-absolute translate-middle-y top-50 start-0 ps-7 product-info-2-minus"><i class="far fa-minus"></i></a>
-                            <input name="number" type="number" id="number" class="product-info-2-quantity form-control w-100 px-6 text-center border-0 fs-18px fw-bold" value="1" required="">
+                            <input name="txtsoLuong" type="text" id="txtsoLuong" class="product-info-2-quantity form-control w-100 px-6 text-center border-0 fs-18px fw-bold" value="1" required="">
                             <a href="#" class="shop-up position-absolute translate-middle-y top-50 end-0 pe-7 product-info-2-plus">
                                 <i class="far fa-plus"></i>
                             </a>
                         </div>
                     </div>
                     <div class="col-sm-8 pt-9 mt-2 mt-sm-0 pt-sm-0 add-to-cart">
-                        <button type="submit" class="btn-hover-bg-primary btn btn-lg fs-18px btn-dark w-100 border-0">
+                        <a href="javascript:void(0)" class="btn-hover-bg-primary btn btn-lg fs-18px btn-dark w-100 border-0">
                             Thêm giỏ hàng
-                        </button>
+                        </a>
                         <input hidden asp-for="ProductId" />
                     </div>
                 </div>
 
-            </form>
+            </iform>
             <p class="mb-4 pb-2">
                 <span class="text-dark">
                     <svg class="icon fs-28px me-2 pe-4">

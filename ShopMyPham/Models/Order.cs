@@ -22,6 +22,8 @@ namespace ShopMyPham.Models
         public string? Note { get; set; }
         public int? ShipperId { get; set; }
         public int? TotalMoney { get; set; }
+        public string? Address { get; set; }
+        public bool? Delete2 { get; set; }
 
         public virtual Customer? Customer { get; set; }
         public virtual OrderStatus? OrderStatusNavigation { get; set; }

@@ -11,7 +11,7 @@ namespace ShopMyPham.ModelViews
     {
         [Key]
         public int Id { get; set; }
-        public Product product { get; set; }
+        public Product? product { get; set; }
         public int amount { get; set; }
         public double TotalMoney => amount * product.Price.Value;
     }

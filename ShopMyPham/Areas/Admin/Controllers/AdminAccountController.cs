@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using ShopMyPham.Extension;
+using ShopMyPham.Helpper;
 using ShopMyPham.Models;
+using ShopMyPham.ModelViews;
 
 namespace ShopMyPham.Areas.Admin.Controllers
 {
@@ -13,9 +17,10 @@ namespace ShopMyPham.Areas.Admin.Controllers
     public class AdminAccountController : Controller
     {
         private readonly ShopMyPhamContext _context;
-
-        public AdminAccountController(ShopMyPhamContext context)
+        public INotyfService _notyfService { get;}
+        public AdminAccountController(ShopMyPhamContext context, INotyfService notyfService)
         {
+            _notyfService = notyfService;
             _context = context;
         }
 
@@ -66,12 +71,49 @@ namespace ShopMyPham.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                string salt = Utilities.GetRandomKey();
+                account.Salt2 = salt;
+                account.Password = (account.Phone + salt.Trim()).ToMD5();
+                account.CreateDate = DateTime.Now;
+
+                // Tạo ngẫu nhiên mật khẩu
                 _context.Add(account);
                 await _context.SaveChangesAsync();
+                _notyfService.Success("Tạo mới thành công!");
                 return RedirectToAction(nameof(Index));
             }
             ViewData["QuyenTruyCap"] = new SelectList(_context.Roles, "RoleId", "RoleName",account.RoleId);
             return View(account);
+        }
+
+        //Channge PAssword
+        public IActionResult ChangePassword()
+        {
+            ViewData["QuyenTruyCap"] = new SelectList(_context.Roles, "RoleId", "RoleName");
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ChangePassword(ChangePassword model)
+        {
+            if (ModelState.IsValid)
+            {
+                var taikhoan = _context.Accounts.AsNoTracking().SingleOrDefault(x => x.Email == model.Email);
+                if (taikhoan == null) return RedirectToAction("Login", "Accounts");
+                var pass = (model.PasswordNow.Trim() + taikhoan.Salt2.Trim()).ToMD5();
+                {
+                    string passnew = (model.Password.Trim() + taikhoan.Salt2.Trim()).ToMD5();
+                    taikhoan.Password = passnew;
+                    taikhoan.LastLogin = DateTime.Now;
+                    _context.Update(taikhoan);
+                    _context.SaveChanges();
+                    _notyfService.Success("Đổi mật khẩu thành công");
+                    return RedirectToAction("Login", "Accounts", new { Area = "Admin" });
+                }
+            }
+
+
+            return View();
         }
 
         // GET: Admin/AdminAccount/Edit/5

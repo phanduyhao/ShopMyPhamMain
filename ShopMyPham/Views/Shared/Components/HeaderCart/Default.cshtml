@@ -17,9 +17,8 @@
 
 							<tr class="position-relative">
 								<td class="align-middle text-center">
-									<a href="#" class="d-block clear-product">
-										<i class="far fa-times"></i>
-									</a>
+									                                                    <input type="button" value="X" class="py-3 px-5 removecart btn btn-primary" data-mahh="@item.product.ProductId" />
+
 								</td>
 								<td class="shop-product">
 									<div class="d-flex align-items-center">
@@ -37,11 +36,8 @@
 								</td>
 								<td class="align-middle p-0">
 									<div class="input-group position-relative shop-quantity">
-										<a href="#" class="shop-down position-absolute z-index-2"><i class="far fa-minus"></i></a>
-										<input name="number[]" type="number" class="form-control form-control-sm px-6 py-4 fs-6 text-center border-0" value="1" required="">
-										<a href="#" class="shop-up position-absolute z-index-2">
-											<i class="far fa-plus"></i>
-										</a>
+                                            <input data-mahh="@item.product.ProductId" data-dongia="@item.product.Price" class="text-center cartItem w-75" value="@item.amount" min="1" type="number">
+											
 									</div>
 								</td>
 							</tr>
@@ -67,3 +63,54 @@
 		</div>
 	}
 </div>
+
+<script>
+	$(function () {
+		function loadHeaderCart() {
+			$('#miniCart').load("/AjaxContent/HeaderCart");
+			$('#numberCart').load("/AjaxContent/NumberCart");
+		}
+		$(".removecart").click(function () {
+			var productid = $(this).attr("data-mahh");
+			$.ajax({
+				url: "api/cart/remove",
+				type: "POST",
+				dataType: "JSON",
+				data: { productID: productid },
+				success: function (result) {
+					if (result.success) {
+						loadHeaderCart();//Reload lai gio hang
+						location.reload();
+					}
+				},
+				error: function (rs) {
+					alert("Remove Cart Error !")
+				}
+			});
+		});
+		$(".cartItem").keypress(function (e) {
+			if (e.which == 13) {
+				var productid = $(this).attr("data-mahh");
+				var soluong = parseInt($(this).val());
+				$.ajax({
+					url: "api/cart/update",
+					type: "POST",
+					dataType: "JSON",
+					data: {
+						productID: productid,
+						amount: soluong
+					},
+					success: function (result) {
+						if (result.success) {
+							loadHeaderCart();//Reload lai gio hang
+							window.location = 'cart.html';
+						}
+					},
+					error: function (rs) {
+						alert("Cập nhật Cart Error !")
+					}
+				});
+			}
+		});
+	});
+</script>

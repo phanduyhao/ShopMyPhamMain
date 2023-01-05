@@ -13,6 +13,7 @@ namespace ShopMyPham.Models
         public int? Discount { get; set; }
         public int? Total { get; set; }
         public DateTime? Shipdate { get; set; }
+        public int? Price { get; set; }
 
         public virtual Order? Order { get; set; }
         public virtual Product? Product { get; set; }

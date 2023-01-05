@@ -1,70 +1,51 @@
 ﻿@model ShopMyPham.Models.Account
 
 @{
-    ViewData["Title"] = "Thêm tài khoản";
+    ViewData["Title"] = "Thêm tài khoản quản trị";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Create</h1>
+<div class="card-body">
+    <h4>Tạo mới tài khoản quản trị</h4>
+    <div class="mt-10" style="max-width: 700px">
+        <form asp-controller="AdminAccount" asp-action="Create" method="post">
+            <div class="row mt-3">
+                <div class="form-group col-md-6">
+                    <label class="mb-2" for="inputEmail4">Họ và tên</label class="mb-2">
+                    <input type="text" class="form-control" asp-for="FullName" placeholder="Họ và tên">
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="mb-2" for="inputPassword4">Số điện thoại</label class="mb-2">
+                    <input type="text" class="form-control" asp-for="Phone" placeholder="Số điện thoại">
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="form-group col-md-6">
+                    <label class="mb-2" for="inputEmail4">Email</label class="mb-2">
+                    <input type="text" class="form-control" asp-for="Email" placeholder="Email">
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="mb-2" for="inputEmail4">Mật khẩu</label class="mb-2">
+                    <input type="text" class="form-control" asp-for="Password" placeholder="Mật khẩu">
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="form-group col-md-6">
+                    <label class="mb-2" for="inputPassword4">Quyền truy cập</label class="mb-2">
+                    <select class="form-control" asp-for="RoleId" asp-items="@ViewBag.QuyenTruyCap" required>
+                        <option value="0" disabled selected>Chọn quyền truy cập</option>
+                    </select>
+                </div>
+            </div>
 
-<h4>Account</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create" method="post" asp-controller="AdminAccount">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Phone" class="control-label"></label>
-                <input asp-for="Phone" class="form-control" />
-                <span asp-validation-for="Phone" class="text-danger"></span>
+                <div class="checkbox">
+                    <input asp-for="Active" type="checkbox">
+                    <label class="mb-2" for="Active">Active</label class="mb-2">
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Salt" class="control-label"></label>
-                <input asp-for="Salt" class="form-control" />
-                <span asp-validation-for="Salt" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Active" /> @Html.DisplayNameFor(model => model.Active)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="FullName" class="control-label"></label>
-                <input asp-for="FullName" class="form-control" />
-                <span asp-validation-for="FullName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LastLogin" class="control-label"></label>
-                <input asp-for="LastLogin" class="form-control" />
-                <span asp-validation-for="LastLogin" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CreateDate" class="control-label"></label>
-                <input asp-for="CreateDate" class="form-control" />
-                <span asp-validation-for="CreateDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="RoleId" class="control-label"></label>
-                <select asp-for="RoleId" class="form-control" asp-items="ViewBag.QuyenTruyCap"></select>
-            </div>
-            <div class="form-group">
-                <input  type="submit" value="Create" class="" />
-            </div>
+            <button type="submit" class="btn btn-primary">Tạo mới</button>
         </form>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
-

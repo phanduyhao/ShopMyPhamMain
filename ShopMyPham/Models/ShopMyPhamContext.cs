@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using ShopMyPham.ModelViews;
 
 namespace ShopMyPham.Models
 {
@@ -39,16 +38,9 @@ namespace ShopMyPham.Models
                 optionsBuilder.UseSqlServer("Server=ADMIN\\SQLEXPRESS;Database=ShopMyPham;Integrated Security=true");
             }
         }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-           /* base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<CartItem>(entity =>
-            {
-                entity.HasKey(x=>x.Id);
-
-            });
-            modelBuilder.Entity<CartItem>().HasNoKey();*/
-
             modelBuilder.UseCollation("SQL_Latin1_General_CP1_CI_AS");
 
             modelBuilder.Entity<Account>(entity =>
@@ -70,6 +62,8 @@ namespace ShopMyPham.Models
                     .IsUnicode(false);
 
                 entity.Property(e => e.RoleId).HasColumnName("RoleID");
+
+                entity.Property(e => e.Salt2).HasMaxLength(50);
 
                 entity.HasOne(d => d.Role)
                     .WithMany(p => p.Accounts)
@@ -358,7 +352,5 @@ namespace ShopMyPham.Models
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
-
-        public DbSet<ShopMyPham.ModelViews.CartItem> CartItem { get; set; }
     }
 }
