@@ -13,6 +13,7 @@ using ShopMyPham.Helpper;
 using ShopMyPham.Models;
 using ShopMyPham.ModelViews;
 using ShopMyPham.Extension;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -66,18 +67,10 @@ namespace ShopMyPham.Controllers
         [Route("tai-khoan-cua-toi.html", Name = "Dashboard")]
         public IActionResult Dashboard()
         {
-            var taikhoanID = HttpContext.Session.GetString("CustomerId");
+            var taikhoanID = User.Identity.Name;
             if (taikhoanID != null)
             {
-                /*if (fThumb != null)
-                {
-                    string extension = Path.GetExtension(fThumb.FileName);
-                    string image = Utilities.SEOUrl(customer1.FullName) + extension;
-                    customer1.Avatar = await Utilities.UploadFile(fThumb, @"products", image.ToLower());
-                }
-                if (string.IsNullOrEmpty(customer1.Avatar)) customer1.Avatar = "default.jpg";
-                customer1.Alias = Utilities.SEOUrl(customer1.FullName);*/
-                var khachhang = _context.Customers.AsNoTracking().SingleOrDefault(x => x.CustomerId == Convert.ToInt32(taikhoanID));
+                var khachhang = _context.Customers.AsNoTracking().SingleOrDefault(x => x.FullName == taikhoanID);
                 if (khachhang != null)
                 {
                     var lsDonHang = _context.Orders
@@ -157,60 +150,54 @@ namespace ShopMyPham.Controllers
         }
         [AllowAnonymous]
         [Route("dang-nhap.html", Name = "DangNhap")]
-        public IActionResult Login(string? returnUrl = null)
+        public IActionResult Login()
         {
-            var taikhoanID = HttpContext.Session.GetString("CustomerId");
-            if (taikhoanID != null)
-            {
-                return RedirectToAction("Dashboard", "Accounts");
-            }
+            ClaimsPrincipal claimUser = HttpContext.User;
+            if (claimUser.Identity.IsAuthenticated)
+                return RedirectToAction("Index", "Home");
             return View();
         }
         [HttpPost]
         [AllowAnonymous]
         [Route("dang-nhap.html", Name = "DangNhap")]
-        public async Task<IActionResult> Login(LoginViewModel customer, string? returnUrl = null)
+        public async Task<IActionResult> Login(LoginViewModel model)
         {
-            try
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
+                var kh = _context.Customers
+                    .SingleOrDefault(p => p.Email.ToLower() == model.Email.ToLower().Trim());
+                if (kh == null)
                 {
-                    bool isEmail = Utilities.IsValidEmail(customer.UserName);
-                    if (!isEmail) return View(customer);
-
-                    var khachhang = _context.Customers.AsNoTracking().SingleOrDefault(x => x.Email.Trim() == customer.UserName);
-
-                    if (khachhang == null) return RedirectToAction("DangkyTaiKhoan");
-                    string pass = ($"{customer.Password}{khachhang.Salt.Trim()}").ToMD5();
-                    if (khachhang.Password != pass)
-                    {
-                        _notyfService.Success("Thông tin đăng nhập chưa chính xác");
-                        return View(customer);
-                    }
-
-                    //Luu Session MaKh
-                    HttpContext.Session.SetString("CustomerId", khachhang.CustomerId.ToString());
-                    var taikhoanID = HttpContext.Session.GetString("CustomerId");
-
-                    //Identity
-                    var claims = new List<Claim>
-                    {
-                        new Claim(ClaimTypes.Name, khachhang.FullName),
-                        new Claim("CustomerId", khachhang.CustomerId.ToString())
-                    };
-                    ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "login");
-                    ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
-                    await HttpContext.SignInAsync(claimsPrincipal);
-                    _notyfService.Success("Đăng nhập thành công");
-                    return RedirectToAction("Dashboard", "Accounts");
-                    
+                    _notyfService.Error("Thông tin đăng nhập chưa chính xác");
                 }
+                string pass = (model.Password.Trim() + kh.Salt.Trim()).ToMD5();
+
+                if (kh.Password.Trim() != pass)
+                {
+                    _notyfService.Error("Thông tin đăng nhập chưa chính xác");
+                    return View(model);
+                }
+
+                List<Claim> claims = new List<Claim>()
+                    {
+                        new Claim(ClaimTypes.Name, kh.FullName),
+                        new Claim(ClaimTypes.NameIdentifier, model.Email),
+                        new Claim("OtherProperties", "Example Role")
+                    };
+
+                ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims,
+                    CookieAuthenticationDefaults.AuthenticationScheme);
+                AuthenticationProperties properties = new AuthenticationProperties()
+                {
+                    AllowRefresh = true,
+                    IsPersistent = model.KeepLoggedIn
+                };
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+                    new ClaimsPrincipal(claimsIdentity));
+                _notyfService.Success("Đăng nhập thành công");
+                return RedirectToAction("Index", "Home");
             }
-            catch(Exception ex)
-            {
-                return RedirectToAction("DangkyTaiKhoan", "Accounts");
-            }
-            return View(customer);
+            return View(model);
         }
         [HttpGet]
         [Route("dang-xuat.html", Name = "DangXuat")]

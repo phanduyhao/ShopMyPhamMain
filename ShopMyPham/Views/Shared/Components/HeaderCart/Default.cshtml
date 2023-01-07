@@ -51,8 +51,17 @@
 				<span class="text-dark">Tổng tiền:</span>
 				<span class="cart-total fw-bold text-dark">@Model.Sum(x => x.TotalMoney).ToString("#,##0") VNĐ</span>
 			</div>
-			<a href="/checkout.html" class="btn btn-dark w-100 mb-7" title="Check Out">Thanh toán</a>
-			<a href="/cart.html" class="btn btn-outline-dark w-100" title="View shopping cart">Xem giỏ hàng</a>
+			@if (User.Identity.IsAuthenticated)
+			{
+				<a href="/checkout.html" class="btn btn-dark w-100 mb-7">Thanh toán</a>
+			}
+			else
+			{
+				<a href="/dang-nhap.html?returnUrl=/checkout.html" class="btn btn-dark w-100 mb-7">Thanh toán</a>
+			}
+@*			<a href="/checkout.html" class="btn btn-dark w-100 mb-7" title="Check Out">Thanh toán</a>
+*@			<a href="/cart.html" class="btn btn-outline-dark w-100" title="View shopping cart">Xem giỏ hàng</a>
+			 
 		</div>
 	}else{
 		<div class="offcanvas-header fs-4">

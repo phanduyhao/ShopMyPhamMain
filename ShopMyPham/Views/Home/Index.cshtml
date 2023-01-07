@@ -4,25 +4,78 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     List<Product> allProduct = ViewBag.AllProducts;
 }
-@*<h1>ádsđsd</h1>
+
 
 <div class="product-area section-space-top-100">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
                         @await Html.PartialAsync("_ListProductPartialView", allProduct)
-                    @foreach (var item in Model.Products)
-                    {
-                        
-                            @await Html.PartialAsync("_ListProductPartialView", item.lsProducts)
-                       
-                    }
+                @if (Model.TinTucs != null && Model.TinTucs.Count() > 0)
+                {
+                    <div class="blog-area section-space-y-axis-100">
+                        <div class="container">
+                            <div class="section-title text-center pb-55">
+
+                                <h2>Tin tức</h2>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="swiper-container blog-slider">
+                                        <div class="swiper-wrapper">
+                                            @foreach (var item in Model.TinTucs)
+                                            {
+                                                string url = $"/tin-tuc/{item.Alias}-{item.PostId}.html";
+                                                <div class="swiper-slide">
+                                                    <div class="blog-item">
+                                                        <div class="blog-img img-zoom-effect">
+                                                            <a href="@url">
+                                                                <img width="200" height="200" class="img-full" src="~/images/news/@item.Thumb" alt="@item.Title">
+                                                            </a>
+                                                        </div>
+                                                        <div class="blog-content">
+                                                            <div class="blog-meta text-dim-gray pb-3">
+                                                                <ul>
+                                                                    <li class="date"><i class="fa fa-calendar-o me-2"></i>@item.CreateDate</li>
+                                                                    <li>
+                                                                        <span class="comments me-3">
+                                                                            <a href="javascript:void(0)">2 Comments</a>
+                                                                        </span>
+                                                                        <span class="link-share">
+                                                                            <a href="javascript:void(0)">Chia sẻ</a>
+                                                                        </span>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                            <h5 class="title mb-4">
+                                                                <a href="@url">@item.Title</a>
+                                                            </h5>
+                                                            <p class="short-desc mb-5">@item.MaxDesc</p>
+                                                            <div class="button-wrap">
+                                                                <a class="btn btn-custom-size btn-dark btn-lg rounded-0" href="blog-detail-left-sidebar.html">Đọc thêm</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+
+
+                                        </div>
+                                        <!-- Add Arrows -->
+                                        <div class="swiper-button-next"></div>
+                                        <div class="swiper-button-prev"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
     </div>
 </div>
 
-*@
+
 <style>
     .add-to-cart {
         padding: 0;
@@ -317,7 +370,7 @@
                                 </a>
                                 <a class="text-dark bg-white bg-dark-hover text-light-hover rounded-circle square shadow-sm product-action compare" href="../shop/compare.html" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="So sánh" tabindex="-1">
                                     <svg class="icon icon-arrows-left-right-light">
-                                        <use xlink:href="#icon-arrows-left-right-light"></use>Khi ngồi bên cạnh một người phụ nữ đẹp nóng bỏng trong 1 giờ đồng hồ, người đàn ông cảm thấy như thời gian mới chỉ trôi qua trong vòng 1 phút. Nhưng nếu ngồi bên một lò lửa nóng một phút, họ lại cảm thấy lâu hơn cả một giờ
+                                        <use xlink:href="#icon-arrows-left-right-light"></use>Not cool. Our tightly knitted fabric holds its form after repeated wear. Plus, Aldays dress up or down, no prob. So you can wear them all day. Get it?
                                     </svg>
                                 </a>
                             </div>
@@ -555,13 +608,13 @@
                              width="570 "
                              height="913"
                              data-src="./assets/images/banner-33.jpg"
-                             alt="Empower Yourself" />
+                             alt="Empower Yourself" />Nền tảng yêu thích
                         <div class="card-img-overlay p-12 m-2 d-inline-flex flex-column justify-content-end">
                             <h3 class="card-title mb-0 fs-40px text-white">
-                                Empower Yourself
+                                Trao quyền bản thân
                             </h3>
                             <p class="card-text mb-0 fs-18px text-white mt-5">
-                                Get the skin you want to feel
+                                Có được làn da bạn muốn cảm nhận
                             </p>
                             <div class="mt-10 pt-2">
                                 <a href="#"

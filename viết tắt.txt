@@ -1,0 +1,3 @@
+- FirstOrDefault : lấy phần tử/đối tượng đầu tiên trong một danh sách dữ liệu được xác định
+- SingleOrDefault(): Giỗng như trên Nhưng nếu danh sách dữ liệu có độ dài > 1 phần tử/đối tượng nó sẽ báo lỗi.
+- AsNoTracking:  trả về một truy vấn mới và các thực thể được trả về sẽ không được lưu vào bộ đệm của Entity Framework

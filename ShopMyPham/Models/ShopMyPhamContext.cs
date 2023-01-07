@@ -19,6 +19,7 @@ namespace ShopMyPham.Models
         public virtual DbSet<Account> Accounts { get; set; } = null!;
         public virtual DbSet<Category> Categories { get; set; } = null!;
         public virtual DbSet<Customer> Customers { get; set; } = null!;
+        public virtual DbSet<FeedBack> FeedBacks { get; set; } = null!;
         public virtual DbSet<Location> Locations { get; set; } = null!;
         public virtual DbSet<Menu> Menus { get; set; } = null!;
         public virtual DbSet<News> News { get; set; } = null!;
@@ -139,6 +140,19 @@ namespace ShopMyPham.Models
                     .WithMany(p => p.Customers)
                     .HasForeignKey(d => d.LocationId)
                     .HasConstraintName("FK_Customers_Locations");
+            });
+
+            modelBuilder.Entity<FeedBack>(entity =>
+            {
+                entity.HasKey(e => e.IdFeedBack);
+
+                entity.ToTable("FeedBack");
+
+                entity.Property(e => e.IdFeedBack).HasColumnName("idFeedBack");
+
+                entity.Property(e => e.Email).HasMaxLength(50);
+
+                entity.Property(e => e.Fullname).HasMaxLength(250);
             });
 
             modelBuilder.Entity<Location>(entity =>

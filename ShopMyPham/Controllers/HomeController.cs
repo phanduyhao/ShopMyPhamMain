@@ -36,29 +36,22 @@ namespace ShopMyPham.Controllers
                 .Where(x => x.Published == true)
                 .OrderByDescending(x => x.Ordering)
                 .ToList();
-
-            /*foreach (var item in lsCats)
+            foreach (var item in lsCats)
             {
                 ProductHomeVM productHome = new ProductHomeVM();
                 productHome.category = item;
                 productHome.lsProducts = lsProducts.Where(x => x.CateId == item.CateId).ToList();
                 lsProductViews.Add(productHome);
-
-                var quangcao = _context.
-                    .AsNoTracking()
-                    .FirstOrDefault(x => x.Active == true);
-
                 var TinTuc = _context.News
                     .AsNoTracking()
-                    .Where(x => x.Published == true && x.IsNewFeed == true)
+                    .Where(x => x.IsHot == true && x.IsNewFeed == true)
                     .OrderByDescending(x => x.CreateDate)
                     .Take(3)
                     .ToList();
                 model.Products = lsProductViews;
-                model.quangcao = quangcao;
                 model.TinTucs = TinTuc;
                 ViewBag.AllProducts = lsProducts;
-            }*/
+            }
             return View(model);
         }
 

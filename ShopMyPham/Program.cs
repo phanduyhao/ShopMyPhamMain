@@ -17,11 +17,11 @@ builder.Services.AddSingleton<HtmlEncoder>(HtmlEncoder.Create(allowedRanges: new
 builder.Services.AddNotyf(config => { config.DurationInSeconds = 10; config.IsDismissable = true; config.Position = NotyfPosition.BottomRight; });
 builder.Services.AddSession();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(p=>
-                        {
-                            p.LoginPath = "/dang-nhap.html";
-                            p.AccessDeniedPath = "/";
-                        });
+    .AddCookie(p =>
+    {
+        p.ExpireTimeSpan = TimeSpan.FromSeconds(60);
+        p.LoginPath = "/dang-nhap.html";
+    });
 var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

@@ -6,7 +6,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     int PageCurrent = ViewBag.CurrentPage;
     int PageNext = PageCurrent + 1;
-    List<Product> lsProduct2s = ViewBag.SanPham;
+    List<Product> lsProducts = ViewBag.SanPham;
 
 
 }
@@ -350,9 +350,10 @@
                     <div class="widgets-area mb-9">
                         <h2 class="widgets-title mb-5">Sản phẩm hàng đầu</h2>
                         <div class="d-column">
-                            @if (lsProduct2s != null)
+                            
+                            @if (lsProducts != null)
                         {
-                            foreach (var item in lsProduct2s)
+                            foreach (var item in lsProducts)
                             {
                                 string url = $"/{item.Alias}-{item.ProductId}.html";
                                 <div class="mb-6 col-md-3 w-100">

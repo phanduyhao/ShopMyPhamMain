@@ -11,10 +11,6 @@ using ShopMyPham.Extension;
 using ShopMyPham.Helpper;
 using ShopMyPham.Models;
 using ShopMyPham.ModelViews;
-using ShopMyPham.Extension;
-using ShopMyPham.Helpper;
-using ShopMyPham.Models;
-using ShopMyPham.ModelViews;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -57,7 +53,6 @@ namespace ShopMyPham.Controllers
                 model.Phone = khachhang.Phone;
                 model.Address = khachhang.Address;
             }
-            ViewData["lsTinhThanh"] = new SelectList(_context.Locations.Where(x => x.Levels == 1).OrderBy(x => x.Type).ToList(), "Location", "Name");
             ViewBag.GioHang = cart;
             return View(model);
         }
@@ -78,8 +73,6 @@ namespace ShopMyPham.Controllers
                 model.Email = khachhang.Email;
                 model.Phone = khachhang.Phone;
                 model.Address = khachhang.Address;
-
-               
                 khachhang.Address = muaHang.Address;
                 _context.Update(khachhang);
                 _context.SaveChanges();
@@ -91,8 +84,8 @@ namespace ShopMyPham.Controllers
                     //Khoi tao don hang
                     Order donhang = new Order();
                     donhang.CustomerId = model.CustomerId;
-                    /*donhang.Address = model.Address;
-*/
+                    donhang.Address = model.Address;
+
                     donhang.OrderDate = DateTime.Now;
                     donhang.OrderStatus = 1;//Don hang moi
                     donhang.Delete2 = false;
@@ -150,7 +143,7 @@ namespace ShopMyPham.Controllers
                     .FirstOrDefault();
                 MuaHangSuccessVM successVM = new MuaHangSuccessVM();
                 successVM.FullName = khachhang.FullName;
-/*                successVM.DonHangID = donhang.OrderId;*/
+                /*                successVM.DonHangID = donhang.OrderId;*/
                 successVM.Phone = khachhang.Phone;
                 successVM.Address = khachhang.Address;
                 return View(successVM);
