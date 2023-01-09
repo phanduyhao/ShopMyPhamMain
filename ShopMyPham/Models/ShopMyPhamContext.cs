@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using ShopMyPham.ModelViews;
 
 namespace ShopMyPham.Models
 {
@@ -367,7 +366,5 @@ namespace ShopMyPham.Models
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
-
-        public DbSet<ShopMyPham.ModelViews.XemDonHang> XemDonHang { get; set; }
     }
 }

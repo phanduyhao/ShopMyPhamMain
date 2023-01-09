@@ -13,10 +13,19 @@
             </nav>
         </div>
     </div>
+
 <form asp-controller="AdminCategories" asp-route-id="@Model.CateId" asp-action="Edit" method="post" enctype="multipart/form-data">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <input type="hidden" asp-for="CateId" />
     <input type="hidden" asp-for="ImageCate" />
+    <div class="d-md-flex mt-3 align-items-center justify-content-between">
+        <div class="mt-3">
+            <button class="btn btn-primary mb-3">
+                <i class="anticon anticon-save"></i>
+                <span>Lưu</span>
+            </button>
+        </div>
+    </div>
         <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
                 <button class="nav-link active fw-semibold text-uppercase" id="product-edit-basic-tab" data-bs-toggle="tab" data-bs-target="#product-edit-basic" type="button" role="tab" aria-controls="product-edit-basic" aria-selected="true">Thông tin cơ bản</button>

@@ -31,6 +31,7 @@
                 <thead>
                     <tr>
                         <th>ID</th>
+                        <th>Ảnh</th>
                         <th>Tên danh mục</th>
                         <th>Trạng thái</th>
                         <th>Ordering</th>
@@ -45,6 +46,8 @@
                             string url = $"/category/{item.Alias}";
                             <tr>
                                 <td>@item.CateId</td>
+                                <td>  <img class="img-fluid rounded" style="width:70px; height:70px" src="~/images/category/@item.ImageCate"></td>
+
                                 <td><a target="_blank" class="text-dark" href="@url">@item.CateName</a></td>
                                 <td>
                                     <div class="d-flex align-items-center">
